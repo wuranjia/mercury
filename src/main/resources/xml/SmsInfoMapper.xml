@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.lang.mercury.dao.SmsInfoMapper">
+    <resultMap id="BaseResultMap" type="com.hy.lang.mercury.pojo.SmsInfo">
+        <id column="sms_id" jdbcType="BIGINT" property="smsId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="receive_info" jdbcType="VARCHAR" property="receiveInfo"/>
+        <result column="sms_content" jdbcType="VARCHAR" property="smsContent"/>
+        <result column="sms_other" jdbcType="VARCHAR" property="smsOther"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="updated_by" jdbcType="VARCHAR" property="updatedBy"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    sms_id, user_id, receive_info, sms_content, sms_other, status, memo, created_time, 
+    created_by, updated_time, updated_by
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_sms
+        where sms_id = #{smsId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_m_sms
+    where sms_id = #{smsId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.hy.lang.mercury.pojo.SmsInfo">
+        insert into t_m_sms (sms_id, user_id, receive_info,
+        sms_content, sms_other, status,
+        memo, created_time, created_by,
+        updated_time, updated_by)
+        values (#{smsId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{receiveInfo,jdbcType=VARCHAR},
+        #{smsContent,jdbcType=VARCHAR}, #{smsOther,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+        #{memo,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR},
+        #{updatedTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR})
+        <selectKey keyProperty="smsId" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.hy.lang.mercury.pojo.SmsInfo">
+        insert into t_m_sms
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="smsId != null">
+                sms_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="receiveInfo != null">
+                receive_info,
+            </if>
+            <if test="smsContent != null">
+                sms_content,
+            </if>
+            <if test="smsOther != null">
+                sms_other,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="updatedBy != null">
+                updated_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="smsId != null">
+                #{smsId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="receiveInfo != null">
+                #{receiveInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="smsContent != null">
+                #{smsContent,jdbcType=VARCHAR},
+            </if>
+            <if test="smsOther != null">
+                #{smsOther,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                #{updatedBy,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hy.lang.mercury.pojo.SmsInfo">
+        update t_m_sms
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="receiveInfo != null">
+                receive_info = #{receiveInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="smsContent != null">
+                sms_content = #{smsContent,jdbcType=VARCHAR},
+            </if>
+            <if test="smsOther != null">
+                sms_other = #{smsOther,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sms_id = #{smsId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hy.lang.mercury.pojo.SmsInfo">
+    update t_m_sms
+    set user_id = #{userId,jdbcType=BIGINT},
+      receive_info = #{receiveInfo,jdbcType=VARCHAR},
+      sms_content = #{smsContent,jdbcType=VARCHAR},
+      sms_other = #{smsOther,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      memo = #{memo,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where sms_id = #{smsId,jdbcType=BIGINT}
+  </update>
+
+    <!-- **************************************** -->
+    <select id="selectByParams" parameterType="com.hy.lang.mercury.resource.req.SmsInfoReq" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_sms
+        where 1=1
+        <if test="userId != null">
+            AND user_id = #{userId,jdbcType=BIGINT}
+        </if>
+        <if test="receiveInfo != null">
+            AND receive_info = #{receiveInfo,jdbcType=VARCHAR}
+        </if>
+        <if test="smsContent != null">
+            AND sms_content = #{smsContent,jdbcType=VARCHAR}
+        </if>
+        <if test="smsOther != null">
+            AND sms_other = #{smsOther,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+            AND status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="memo != null">
+            AND memo = #{memo,jdbcType=VARCHAR}
+        </if>
+        order by sms_id DESC
+        limit #{start},#{limit}
+    </select>
+
+    <select id="countByParams" parameterType="com.hy.lang.mercury.resource.req.SmsInfoReq"
+            resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_m_sms
+        where 1=1
+        <if test="userId != null">
+            AND user_id = #{userId,jdbcType=BIGINT}
+        </if>
+        <if test="receiveInfo != null">
+            AND receive_info = #{receiveInfo,jdbcType=VARCHAR}
+        </if>
+        <if test="smsContent != null">
+            AND sms_content = #{smsContent,jdbcType=VARCHAR}
+        </if>
+        <if test="smsOther != null">
+            AND sms_other = #{smsOther,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+            AND status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="memo != null">
+            AND memo = #{memo,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+    <update id="updateSmsStatus">
+    update t_m_sms
+    set  status = #{status,jdbcType=INTEGER}
+    where sms_id = #{smsId,jdbcType=BIGINT}
+  </update>
+
+
+    <update id="updateSmsStatusAndMemo">
+        update t_m_sms
+        set  status = #{status,jdbcType=INTEGER},memo = #{memo,jdbcType=VARCHAR}
+        where sms_id = #{smsId,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectBySmsOtherNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_sms
+        where 1=1 AND sms_other = #{smsOther,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateSmsOtherNo">
+        update t_m_sms
+        set sms_other = #{smsOther,jdbcType=VARCHAR}
+        where sms_id = #{smsId,jdbcType=BIGINT}
+    </update>
+</mapper>

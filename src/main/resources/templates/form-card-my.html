@@ -1,0 +1,357 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>物联网云服务</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="../../static/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../../static/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="stylesheet" href="../../static/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="../../static/assets/css/admin.css">
+    <link rel="stylesheet" href="../../static/assets/css/app.css">
+</head>
+
+<body data-type="generalComponents">
+
+
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <a href="javascript:;" class="tpl-logo">
+            <img src="../../static/assets/img/logo.png" alt="">
+        </a>
+    </div>
+    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+            class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+
+            </li>
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+
+            </li>
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+
+            </li>
+            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
+                    class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+
+                <ul class="am-dropdown-content">
+                    <li><a href="javascript:exit();"><span class="am-icon-power-off"></span> 退出</a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:exit();" class="tpl-header-list-link"><span
+                    class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
+        </ul>
+    </div>
+</header>
+
+
+<div class="tpl-page-container tpl-page-header-fixed">
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            菜单 列表
+        </div>
+        <div class="tpl-left-nav-list">
+            <div th:each="item:${menuList}">
+                <ul class="tpl-left-nav-menu">
+                    <li class="tpl-left-nav-item">
+                        <a th:href="${item.menuUrl}" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-table"></i>
+                            <span th:text="${item.menuName}"></span>
+                            <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+                        </a>
+                        <ul th:each="child:${item.children}" class="tpl-left-nav-sub-menu">
+                            <li>
+                                <a th:href="${child.menuUrl}">
+                                    <i class="am-icon-angle-right"></i>
+                                    <span th:text="${child.menuName}"></span>
+                                    <i class="tpl-left-nav-content tpl-badge-success">
+                                    </i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+            我的卡片
+        </div>
+        <div class="tpl-portlet-components">
+            <div class="portlet-title">
+                <div class="tpl-block">
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+                            <form id="queryForm" class="am-form-inline" role="form">
+
+                                <div class="am-g am-margin-top  am-form-group am-form-group-xs">
+                                    <button type="button" class="am-btn am-btn-sm am-btn-default">
+                                        全部
+                                        </br>
+                                        <span id="d1">0</span>
+                                    </button>
+                                    <button type="button" class="am-btn am-btn-sm am-btn-default">
+                                        已出库
+                                        </br>
+                                        <span id="d2">0</span>
+                                    </button>
+                                    <button type="button" class="am-btn am-btn-sm am-btn-default">
+                                        未出库
+                                        </br>
+                                        <span id="d3">0</span>
+                                    </button>
+                                    <button type="button" class="am-btn am-btn-sm am-btn-default">
+                                        已激活
+                                        </br>
+                                        <span id="d4">0</span>
+                                    </button>
+                                    <button type="button" class="am-btn am-btn-sm am-btn-default">
+                                        未激活
+                                        </br>
+                                        <span id="d5">0</span>
+                                    </button>
+                                    <button type="button" class="am-btn am-btn-sm am-btn-default">
+                                        超流量
+                                        </br>
+                                        <span id="d6">0</span>
+                                    </button>
+                                    <button type="button" class="am-btn am-btn-sm am-btn-default">
+                                        超短信
+                                        </br>
+                                        <span id="d7">0</span>
+                                    </button>
+                                    <button type="button" class="am-btn am-btn-sm am-btn-default">
+                                        将过期
+                                        </br>
+                                        <span id="d8">0</span>
+                                    </button>
+                                    <button type="button" class="am-btn am-btn-sm am-btn-default">
+                                        已过期
+                                        </br>
+                                        <span id="d9">0</span>
+                                    </button>
+                                    <button type="button" class="am-btn am-btn-sm am-btn-default">
+                                        已移除
+                                        </br>
+                                        <span id="d10">0</span>
+                                    </button>
+                                </div>
+                                <span>&nbsp;</span>
+                                </br>
+                                <span>&nbsp;</span>
+                                </br>
+                                <div class="am-form-group">
+                                    <span class="am-text-sm">卡号:&nbsp;&nbsp;</span> <input id="sim" name="sim"
+                                                                                           type="text"
+                                                                                           class="am-form-field"
+                                                                                           placeholder="卡号">
+                                </div>
+
+                                <div class="am-form-group">
+                                    <span class="am-text-sm">ICCID:&nbsp;&nbsp;</span> <input id="iccid" name="iccid"
+                                                                                              type="text"
+                                                                                              class="am-form-field"
+                                                                                              placeholder="ICCID">
+                                </div>
+                                <a class="am-btn am-btn-primary am-btn-xs" href="javascript:query();">查询</a>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+                            <form class="am-form">
+                                <table id="simTable" class="am-table am-table-striped am-table-hover table-main">
+                                    <thead>
+                                    <tr>
+                                        <th>卡号</th>
+                                        <th>ICCID</th>
+                                        <th>运营商</th>
+                                        <th>套餐类型</th>
+                                        <th>总流量(M)</th>
+                                        <th>使用量(M)</th>
+                                        <th>剩余量(M)</th>
+                                        <th>消耗短信</th>
+                                        <th>预计到期日期</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                                <hr/>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="am-u-md-6 am-u-sm-12 row-mb">
+                            <div class="tpl-portlet">
+                                <div class="tpl-portlet-title">
+                                    <div class="tpl-caption font-green ">
+                                        <span>卡片详情</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-g am-g-fixed">
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-primary">卡号</span></div>
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-primary">销售套餐</span></div>
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-primary">运营商</span></div>
+                            </div>
+                            <div class="am-g am-g-fixed">
+                                <div class="am-u-sm-4"><span id="simId" name="simId"
+                                                             style="word-break:normal; width:auto; display:block; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden ;"
+                                                             class="am-text-sm">--</span></div>
+                                <div class="am-u-sm-4"><span id="suitName" name="suitName" class="am-text-sm">--</span>
+                                </div>
+                                <div class="am-u-sm-4"><span id="communication" name="communication" class="am-text-sm">--</span>
+                                </div>
+                            </div>
+                            <div class="am-g am-g-fixed">
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-secondary">ICCID</span></div>
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-secondary">IMSI</span></div>
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-secondary">已开通服务</span></div>
+                            </div>
+                            <div class="am-g am-g-fixed">
+                                <div class="am-u-sm-4"><span id="iccidInfo" name="iccidInfo"
+                                                             style="word-break:normal; width:auto; display:block; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden ;"
+                                                             class="am-text-sm">--</span></div>
+                                <div class="am-u-sm-4"><span id="imsi" name="imsi"
+                                                             style="word-break:normal; width:auto; display:block; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden ;"
+                                                             class="am-text-sm">--</span></div>
+                                <div class="am-u-sm-4"><span id="open" name="open"
+                                                             style="word-break:normal; width:auto; display:block; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden ;"
+                                                             class="am-text-sm">--</span></div>
+                            </div>
+                            <div class="am-g am-g-fixed">
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-success">开卡日期</span></div>
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-success">激活日期</span></div>
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-success">预计到期日期</span></div>
+                            </div>
+                            <div class="am-g am-g-fixed">
+                                <div class="am-u-sm-4"><span id="openDate" name="openDate" class="am-text-sm">--</span>
+                                </div>
+                                <div class="am-u-sm-4"><span id="activateStatus" name="activateStatus"
+                                                             class="am-text-sm">--</span></div>
+                                <div class="am-u-sm-4"><span id="limitDate" name="limitDate"
+                                                             class="am-text-sm">--</span></div>
+                            </div>
+                            <div class="am-g am-g-fixed">
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-primary">短信</span></div>
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-primary">状态</span></div>
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-primary">开关机</span></div>
+                            </div>
+                            <div class="am-g am-g-fixed">
+                                <div class="am-u-sm-4"><span id="smsUse" name="smsUse" class="am-text-sm">--</span>
+                                </div>
+                                <div class="am-u-sm-4"><span id="status" name="status" class="am-text-sm">--</span>
+                                </div>
+                                <div class="am-u-sm-4"><span id="statusDeliver" name="statusDeliver" class="am-text-sm">--</span>
+                                </div>
+                            </div>
+                            <div class="am-g am-g-fixed">
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-secondary">本月流量消耗</span></div>
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-secondary">在线状态</span></div>
+                                <div class="am-u-sm-4"><span class="am-text-sm am-text-secondary">是否欠费</span></div>
+                            </div>
+                            <div class="am-g am-g-fixed">
+                                <div class="am-u-sm-4"><span id="flowUseMonth" name="flowUseMonth"
+                                                             class="am-text-sm">--</span></div>
+                                <div class="am-u-sm-4"><span id="statusOnline" name="statusOnline"
+                                                             class="am-text-sm">--</span></div>
+                                <div class="am-u-sm-4"><span id="statusArrearage" name="statusArrearage"
+                                                             class="am-text-sm">--</span></div>
+                            </div>
+                        </div>
+                        <!-- end line -->
+                        <div class="am-u-md-6 am-u-sm-12 row-mb">
+                            <div class="tpl-portlet">
+                                <div class="tpl-portlet-title">
+                                    <div class="tpl-caption font-green ">
+                                        <span>短信指令</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-g">
+                                <div class="am-u-sm-12 am-u-md-12 am-text-left">
+                                    <input class="am-form-field am-input-sm" type="text" id="phone"
+                                           placeholder="请输入手机号">
+                                </div>
+                            </div>
+                            <div class="am-g">
+                                <div class="am-u-sm-12 am-u-md-12 am-text-left">
+                                <textarea class="am-form-field am-input-sm" type="text" id="content" rows="4"
+                                          placeholder="请输入短信内容"></textarea>
+                                </div>
+                            </div>
+                            <div class="am-g am-g-fixed am-form-group am-form-group-xs">
+                            </div>
+                            <div class="am-g am-g-fixed am-form-group am-form-group-xs am-text-right">
+                                <a class="am-btn am-btn-primary am-btn-xs" href="javascript:querySms();">列表</a>
+                                <a class="am-btn am-btn-primary am-btn-xs" href="javascript:send();">发送</a>
+                            </div>
+                            <!-- table -->
+
+                            <div class="am-g">
+                                <div class="am-u-sm-12">
+                                    <form class="am-form">
+                                        <table id="smsTable"
+                                               class="am-table am-table-striped am-table-hover table-main">
+                                            <thead>
+                                            <tr>
+                                                <th>时间</th>
+                                                <th>类型</th>
+                                                <th>状态</th>
+                                                <th>内容</th>
+                                            </tr>
+                                            </thead>
+                                        </table>
+                                        <hr/>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- end row -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../static/assets/js/jquery.min.js"></script>
+<script src="http://code.changer.hk/jquery/plugins/jquery.cookie.js"></script>
+<script src="../../static/assets/js/amazeui.min.js"></script>
+<script src="../../static/assets/js/app.js"></script>
+<script src="../../static/assets/datatable/amazeui.datatables.min.js"></script>
+<script src="../../static/assets/datatable/dataTables.responsive.min.js"></script>
+<script src="../../static/assets/biz/form-card-my.js"></script>
+</body>
+
+<script type="text/javascript">
+
+
+</script>
+
+</html>

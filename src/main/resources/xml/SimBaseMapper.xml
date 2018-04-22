@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.lang.mercury.dao.SimBaseMapper">
+    <resultMap id="BaseResultMap" type="com.hy.lang.mercury.pojo.SimBase">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="sim_id" jdbcType="BIGINT" property="simId"/>
+        <result column="iccid" jdbcType="VARCHAR" property="iccid"/>
+        <result column="imsi" jdbcType="VARCHAR" property="imsi"/>
+        <result column="communication" jdbcType="VARCHAR" property="communication"/>
+        <result column="suit_id" jdbcType="BIGINT" property="suitId"/>
+        <result column="suit_name" jdbcType="VARCHAR" property="suitName"/>
+        <result column="flow_total" jdbcType="DECIMAL" property="flowTotal"/>
+        <result column="flow_use" jdbcType="DECIMAL" property="flowUse"/>
+        <result column="sms_use" jdbcType="BIGINT" property="smsUse"/>
+        <result column="limit_date" jdbcType="TIMESTAMP" property="limitDate"/>
+        <result column="activate_status" jdbcType="VARCHAR" property="activateStatus"/>
+        <result column="activate_date" jdbcType="TIMESTAMP" property="activateDate"/>
+        <result column="over_flow" jdbcType="VARCHAR" property="overFlow"/>
+        <result column="over_sms" jdbcType="VARCHAR" property="overSms"/>
+        <result column="flag_expire" jdbcType="VARCHAR" property="flagExpire"/>
+        <result column="flag_near_expire" jdbcType="VARCHAR" property="flagNearExpire"/>
+        <result column="status_deliver" jdbcType="VARCHAR" property="statusDeliver"/>
+        <result column="status_online" jdbcType="VARCHAR" property="statusOnline"/>
+        <result column="status_arrearage" jdbcType="VARCHAR" property="statusArrearage"/>
+        <result column="supplier" jdbcType="BIGINT" property="supplier"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="updated_by" jdbcType="VARCHAR" property="updatedBy"/>
+        <result column="open_flag" jdbcType="VARCHAR" property="openFlag"/>
+        <result column="open_date" jdbcType="TIMESTAMP" property="openDate"/>
+        <result column="flow_use_month" jdbcType="DECIMAL" property="flowUseMonth"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, sim_id, iccid, imsi, communication, suit_id, suit_name, flow_total, flow_use,
+        sms_use, limit_date, activate_status, activate_date, over_flow, over_sms, flag_expire,
+        flag_near_expire, status_deliver, status_online, status_arrearage, supplier, status,
+        memo, created_time, created_by, updated_time, updated_by,open_flag,open_date,flow_use_month
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_sim_base
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_m_sim_base
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.hy.lang.mercury.pojo.SimBase">
+        insert into t_m_sim_base ( sim_id, iccid,
+        imsi, communication, suit_id,
+        suit_name, flow_total, flow_use,
+        sms_use, limit_date, activate_status,
+        activate_date, over_flow, over_sms,
+        flag_expire, flag_near_expire, status_deliver,
+        status_online, status_arrearage, supplier,
+        status, memo, created_time,
+        created_by, updated_time, updated_by
+        )
+        values ( #{simId,jdbcType=BIGINT}, #{iccid,jdbcType=VARCHAR},
+        #{imsi,jdbcType=VARCHAR}, #{communication,jdbcType=VARCHAR}, #{suitId,jdbcType=BIGINT},
+        #{suitName,jdbcType=VARCHAR}, #{flowTotal,jdbcType=DECIMAL}, #{flowUse,jdbcType=DECIMAL},
+        #{smsUse,jdbcType=BIGINT}, #{limitDate,jdbcType=TIMESTAMP}, #{activateStatus,jdbcType=VARCHAR},
+        #{activateDate,jdbcType=TIMESTAMP}, #{overFlow,jdbcType=VARCHAR}, #{overSms,jdbcType=VARCHAR},
+        #{flagExpire,jdbcType=VARCHAR}, #{flagNearExpire,jdbcType=VARCHAR}, #{statusDeliver,jdbcType=VARCHAR},
+        #{statusOnline,jdbcType=VARCHAR}, #{statusArrearage,jdbcType=VARCHAR}, #{supplier,jdbcType=BIGINT},
+        #{status,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP},
+        #{createdBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.hy.lang.mercury.pojo.SimBase">
+        insert into t_m_sim_base
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="simId != null">
+                sim_id,
+            </if>
+            <if test="iccid != null">
+                iccid,
+            </if>
+            <if test="imsi != null">
+                imsi,
+            </if>
+            <if test="communication != null">
+                communication,
+            </if>
+            <if test="suitId != null">
+                suit_id,
+            </if>
+            <if test="suitName != null">
+                suit_name,
+            </if>
+            <if test="flowTotal != null">
+                flow_total,
+            </if>
+            <if test="flowUse != null">
+                flow_use,
+            </if>
+            <if test="smsUse != null">
+                sms_use,
+            </if>
+            <if test="limitDate != null">
+                limit_date,
+            </if>
+            <if test="activateStatus != null">
+                activate_status,
+            </if>
+            <if test="activateDate != null">
+                activate_date,
+            </if>
+            <if test="overFlow != null">
+                over_flow,
+            </if>
+            <if test="overSms != null">
+                over_sms,
+            </if>
+            <if test="flagExpire != null">
+                flag_expire,
+            </if>
+            <if test="flagNearExpire != null">
+                flag_near_expire,
+            </if>
+            <if test="statusDeliver != null">
+                status_deliver,
+            </if>
+            <if test="statusOnline != null">
+                status_online,
+            </if>
+            <if test="statusArrearage != null">
+                status_arrearage,
+            </if>
+            <if test="supplier != null">
+                supplier,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="updatedBy != null">
+                updated_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="simId != null">
+                #{simId,jdbcType=BIGINT},
+            </if>
+            <if test="iccid != null">
+                #{iccid,jdbcType=VARCHAR},
+            </if>
+            <if test="imsi != null">
+                #{imsi,jdbcType=VARCHAR},
+            </if>
+            <if test="communication != null">
+                #{communication,jdbcType=VARCHAR},
+            </if>
+            <if test="suitId != null">
+                #{suitId,jdbcType=BIGINT},
+            </if>
+            <if test="suitName != null">
+                #{suitName,jdbcType=VARCHAR},
+            </if>
+            <if test="flowTotal != null">
+                #{flowTotal,jdbcType=DECIMAL},
+            </if>
+            <if test="flowUse != null">
+                #{flowUse,jdbcType=DECIMAL},
+            </if>
+            <if test="smsUse != null">
+                #{smsUse,jdbcType=BIGINT},
+            </if>
+            <if test="limitDate != null">
+                #{limitDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activateStatus != null">
+                #{activateStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="activateDate != null">
+                #{activateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="overFlow != null">
+                #{overFlow,jdbcType=VARCHAR},
+            </if>
+            <if test="overSms != null">
+                #{overSms,jdbcType=VARCHAR},
+            </if>
+            <if test="flagExpire != null">
+                #{flagExpire,jdbcType=VARCHAR},
+            </if>
+            <if test="flagNearExpire != null">
+                #{flagNearExpire,jdbcType=VARCHAR},
+            </if>
+            <if test="statusDeliver != null">
+                #{statusDeliver,jdbcType=VARCHAR},
+            </if>
+            <if test="statusOnline != null">
+                #{statusOnline,jdbcType=VARCHAR},
+            </if>
+            <if test="statusArrearage != null">
+                #{statusArrearage,jdbcType=VARCHAR},
+            </if>
+            <if test="supplier != null">
+                #{supplier,jdbcType=BIGINT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                #{updatedBy,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hy.lang.mercury.pojo.SimBase">
+        update t_m_sim_base
+        <set>
+            <if test="simId != null">
+                sim_id = #{simId,jdbcType=BIGINT},
+            </if>
+            <if test="iccid != null">
+                iccid = #{iccid,jdbcType=VARCHAR},
+            </if>
+            <if test="imsi != null">
+                imsi = #{imsi,jdbcType=VARCHAR},
+            </if>
+            <if test="communication != null">
+                communication = #{communication,jdbcType=VARCHAR},
+            </if>
+            <if test="suitId != null">
+                suit_id = #{suitId,jdbcType=BIGINT},
+            </if>
+            <if test="suitName != null">
+                suit_name = #{suitName,jdbcType=VARCHAR},
+            </if>
+            <if test="flowTotal != null">
+                flow_total = #{flowTotal,jdbcType=DECIMAL},
+            </if>
+            <if test="flowUse != null">
+                flow_use = #{flowUse,jdbcType=DECIMAL},
+            </if>
+            <if test="smsUse != null">
+                sms_use = #{smsUse,jdbcType=BIGINT},
+            </if>
+            <if test="limitDate != null">
+                limit_date = #{limitDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activateStatus != null">
+                activate_status = #{activateStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="activateDate != null">
+                activate_date = #{activateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="overFlow != null">
+                over_flow = #{overFlow,jdbcType=VARCHAR},
+            </if>
+            <if test="overSms != null">
+                over_sms = #{overSms,jdbcType=VARCHAR},
+            </if>
+            <if test="flagExpire != null">
+                flag_expire = #{flagExpire,jdbcType=VARCHAR},
+            </if>
+            <if test="flagNearExpire != null">
+                flag_near_expire = #{flagNearExpire,jdbcType=VARCHAR},
+            </if>
+            <if test="statusDeliver != null">
+                status_deliver = #{statusDeliver,jdbcType=VARCHAR},
+            </if>
+            <if test="statusOnline != null">
+                status_online = #{statusOnline,jdbcType=VARCHAR},
+            </if>
+            <if test="statusArrearage != null">
+                status_arrearage = #{statusArrearage,jdbcType=VARCHAR},
+            </if>
+            <if test="supplier != null">
+                supplier = #{supplier,jdbcType=BIGINT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hy.lang.mercury.pojo.SimBase">
+        update t_m_sim_base
+        set sim_id = #{simId,jdbcType=BIGINT},
+        iccid = #{iccid,jdbcType=VARCHAR},
+        imsi = #{imsi,jdbcType=VARCHAR},
+        communication = #{communication,jdbcType=VARCHAR},
+        suit_id = #{suitId,jdbcType=BIGINT},
+        suit_name = #{suitName,jdbcType=VARCHAR},
+        flow_total = #{flowTotal,jdbcType=DECIMAL},
+        flow_use = #{flowUse,jdbcType=DECIMAL},
+        sms_use = #{smsUse,jdbcType=BIGINT},
+        limit_date = #{limitDate,jdbcType=TIMESTAMP},
+        activate_status = #{activateStatus,jdbcType=VARCHAR},
+        activate_date = #{activateDate,jdbcType=TIMESTAMP},
+        over_flow = #{overFlow,jdbcType=VARCHAR},
+        over_sms = #{overSms,jdbcType=VARCHAR},
+        flag_expire = #{flagExpire,jdbcType=VARCHAR},
+        flag_near_expire = #{flagNearExpire,jdbcType=VARCHAR},
+        status_deliver = #{statusDeliver,jdbcType=VARCHAR},
+        status_online = #{statusOnline,jdbcType=VARCHAR},
+        status_arrearage = #{statusArrearage,jdbcType=VARCHAR},
+        supplier = #{supplier,jdbcType=BIGINT},
+        status = #{status,jdbcType=VARCHAR},
+        memo = #{memo,jdbcType=VARCHAR},
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+        created_by = #{createdBy,jdbcType=VARCHAR},
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+        updated_by = #{updatedBy,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="selectByParamsOrderByFlow" parameterType="com.hy.lang.mercury.resource.req.SimBaseReq"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_sim_base
+        where 1=1
+        order by flow_use,id DESC
+        limit #{start},#{limit}
+    </select>
+
+    <select id="selectByParams" parameterType="com.hy.lang.mercury.resource.req.SimBaseReq"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_sim_base
+        where 1=1
+        <if test="sim != null">
+            AND sim_id = #{sim,jdbcType=BIGINT}
+        </if>
+        <if test="iccid != null">
+            AND iccid = #{iccid,jdbcType=VARCHAR}
+        </if>
+        order by id DESC
+        limit #{start},#{limit}
+    </select>
+
+    <select id="countByCal" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from t_m_sim_base t where
+          <![CDATA[
+         t.cal_day is null or t.cal_day <  #{calDay,jdbcType=VARCHAR}
+
+        ]]>
+    </select>
+
+    <select id="selectByCal" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_sim_base t
+        where 1=1 and
+        <![CDATA[
+         t.cal_day is null or t.cal_day <  #{calDay,jdbcType=VARCHAR}
+        ]]>
+        limit 0,200
+    </select>
+
+    <update id="updateCal" parameterType="java.util.Map">
+        update t_m_sim_base set cal_day =  #{calDay,jdbcType=VARCHAR} where sim_id = #{simId,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="countByParams" parameterType="com.hy.lang.mercury.resource.req.SimBaseReq"
+            resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_m_sim_base
+        where 1=1
+        <if test="sim != null">
+            AND sim_id = #{sim,jdbcType=BIGINT}
+        </if>
+        <if test="iccid != null">
+            AND iccid = #{iccid,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+    <select id="count" parameterType="java.util.Map"
+            resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_m_sim_base
+        where 1=1
+        <if test="userId != null">
+            AND supplier = #{userId,jdbcType=BIGINT}
+        </if>
+        <if test="activateStatus != null">
+            AND activate_status = #{activateStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="overFlow != null">
+            AND over_flow = #{overFlow,jdbcType=VARCHAR}
+        </if>
+        <if test="overSms != null">
+            AND over_sms = #{overSms,jdbcType=VARCHAR}
+        </if>
+        <if test="flagExpire != null">
+            AND flag_expire = #{flagExpire,jdbcType=VARCHAR}
+        </if>
+        <if test="flagNearExpire != null">
+            AND flag_near_expire = #{flagNearExpire,jdbcType=VARCHAR}
+        </if>
+        <if test="statusDeliver != null">
+            AND status_deliver = #{statusDeliver,jdbcType=VARCHAR}
+        </if>
+        <if test="statusOnline != null">
+            AND status_online = #{statusOnline,jdbcType=VARCHAR}
+        </if>
+        <if test="statusArrearage != null">
+            AND status_arrearage = #{statusArrearage,jdbcType=VARCHAR}
+        </if>
+        <if test="supplier != null">
+            AND supplier = #{supplier,jdbcType=BIGINT}
+        </if>
+        <if test="status != null">
+            AND status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="memo != null">
+            AND memo = #{memo,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <insert id="batchInsert"
+            parameterType="List">
+
+        insert into t_m_sim_base ( sim_id, iccid,
+        imsi, communication, suit_id,
+        suit_name, flow_total, flow_use,
+        sms_use, limit_date, activate_status,
+        activate_date, over_flow, over_sms,
+        flag_expire, flag_near_expire, status_deliver,
+        status_online, status_arrearage, supplier,
+        status, memo, created_time,
+        created_by, updated_time, updated_by,
+        open_flag,open_date,flow_use_month
+        )
+        values
+        <foreach collection="list"
+                 item="item"
+                 index="index"
+                 separator=","
+        >
+            (#{item.simId,jdbcType=BIGINT}, #{item.iccid,jdbcType=VARCHAR},
+            #{item.imsi,jdbcType=VARCHAR}, #{item.communication,jdbcType=VARCHAR}, #{item.suitId,jdbcType=BIGINT},
+            #{item.suitName,jdbcType=VARCHAR}, #{item.flowTotal,jdbcType=DECIMAL}, #{item.flowUse,jdbcType=DECIMAL},
+            #{item.smsUse,jdbcType=BIGINT}, #{item.limitDate,jdbcType=TIMESTAMP},
+            #{item.activateStatus,jdbcType=VARCHAR},
+            #{item.activateDate,jdbcType=TIMESTAMP}, #{item.overFlow,jdbcType=VARCHAR},
+            #{item.overSms,jdbcType=VARCHAR},
+            #{item.flagExpire,jdbcType=VARCHAR}, #{item.flagNearExpire,jdbcType=VARCHAR},
+            #{item.statusDeliver,jdbcType=VARCHAR},
+            #{item.statusOnline,jdbcType=VARCHAR}, #{item.statusArrearage,jdbcType=VARCHAR},
+            #{item.supplier,jdbcType=BIGINT},
+            #{item.status,jdbcType=VARCHAR}, #{item.memo,jdbcType=VARCHAR}, #{item.createdTime,jdbcType=TIMESTAMP},
+            #{item.createdBy,jdbcType=VARCHAR}, #{item.updatedTime,jdbcType=TIMESTAMP},
+            #{item.updatedBy,jdbcType=VARCHAR},
+            #{item.openFlag,jdbcType=VARCHAR}, #{item.openDate,jdbcType=TIMESTAMP},
+            #{item.flowUseMonth,jdbcType=DECIMAL})
+        </foreach>
+
+    </insert>
+
+
+</mapper>

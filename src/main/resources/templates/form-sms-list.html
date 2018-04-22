@@ -1,0 +1,307 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>物联网系统</title>
+    <meta name="description" content="这是一个 table 页面">
+    <meta name="keywords" content="table">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="icon" type="image/png" href="../../static/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../../static/assets/i/app-icon72x72@2x.png">
+    <link rel="stylesheet" href="../../static/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="../../static/assets/datatable/amazeui.datatables.min.css">
+
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <strong>物联网系统</strong>
+        <small>发送短信列表</small>
+    </div>
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+            <!--
+                        <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
+            -->
+            <li class="am-dropdown" data-am-dropdown>
+                <!-- <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                     <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                 </a>-->
+                <ul class="am-dropdown-content">
+                    <!--  <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+                      <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>-->
+                    <li></li>
+                </ul>
+            </li>
+            <!--
+                        <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+            -->
+        </ul>
+    </div>
+</header>
+
+<div class="am-cf admin-main">
+    <!-- sidebar start -->
+    <!-- sidebar end -->
+
+    <!-- content start -->
+    <div class="admin-content">
+        <div class="admin-content-body">
+            <div class="am-cf am-padding am-padding-bottom-0">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">列表</strong>
+                    <small><a href="/fe/sms"><span class="am-icon-power-off"></span> 新增</a></small>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="am-g">
+                <form id="smsForm" class="am-form">
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                            终端SIM卡号码:
+                        </div>
+                        <div class="am-u-sm-4 am-u-md-2">
+                                    <input id="receiveInfo" name="receiveInfo" rows="1"
+                                              placeholder="请输入sim卡号"/>
+                        </div>
+
+                        <a class="am-btn am-btn-primary" href="javascript:query();">查询</a>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <form class="am-form">
+                        <table id="smsTable" class="am-table am-table-striped am-table-hover table-main">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>接收人</th>
+                                <th>内容</th>
+                                <th>状态</th>
+                                <th>SEQ</th>
+                                <th>响应</th>
+                            </tr>
+                            </thead>
+                        </table>
+                        <hr/>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- content end -->
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+   data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<footer>
+    <hr>
+    <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>
+
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="../../static/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="../../static/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="../../static/assets/js/amazeui.min.js"></script>
+<script src="../../static/assets/js/app.js"></script>
+<script src="../../static/assets/datatable/amazeui.datatables.min.js"></script>
+<script src="../../static/assets/datatable/dataTables.responsive.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        try {
+
+            //提示信息
+            var lang = {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "每页 _MENU_ 项",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "当前显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项。",
+                "sInfoEmpty": "当前显示第 0 至 0 项，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页",
+                    "sJump": "跳转"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            };
+
+            //初始化表格
+            var table = $("#smsTable").dataTable({
+                language: lang, //提示信息
+                autoWidth: false, //禁用自动调整列宽
+                stripeClasses: ["odd", "even"], //为奇偶行加上样式，兼容不支持CSS伪类的场合
+                processing: true, //隐藏加载提示,自行处理
+                serverSide: true, //启用服务器端分页
+                searching: false, //禁用原生搜索
+                orderMulti: false, //启用多列排序
+                order: [], //取消默认排序查询,否则复选框一列会出现小箭头
+                renderer: "bootstrap", //渲染样式：Bootstrap和jquery-ui
+                pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+                bFilter: false,    //去掉搜索框方法三：这种方法可以
+                bLengthChange: false,   //去掉每页显示多少条数据方法
+                columnDefs: [{
+                    "targets": 'nosort', //列的样式名
+                    "orderable": false //包含上样式名‘nosort'的禁止排序
+                }],
+                ajax: function (data, callback, settings) {
+                    //封装请求参数
+                    var param = {};
+                    param.limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+                    param.start = data.start;//开始的记录序号
+                    param.page = (data.start / data.length) + 1;//当前页码
+                    param.draw = data.draw;
+                    param.userId = -1;
+                    param.sim = $('#receiveInfo').val();
+                    //ajax请求数据
+                    $.ajax({
+                        type: "GET",
+                        url: "/sms/list",
+                        cache: false, //禁用缓存
+                        data: param, //传入组装的参数
+                        dataType: "json",
+                        success: function (result) {
+                            //封装返回数据
+                            var returnData = {};
+                            //          alert(result);
+                            returnData.draw = result.data.draw;//这里直接自行返回了draw计数器,应该由后台返回
+                            returnData.recordsTotal = result.data.total;//返回数据全部记录
+                            returnData.recordsFiltered = result.data.total;//后台不实现过滤功能，每次查询均视作全部结果
+                            returnData.data = result.data.items;//返回的数据列表
+                            console.log(returnData);
+                            //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+                            //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+                            //            alert(returnData);
+                            callback(returnData);
+                        }
+                    });
+                },
+                //列表表头字段
+                columns: [
+                    {"data": "smsId", "orderable": false},
+                    {"data": "receiveInfo", "orderable": false},
+                    {
+                        "data": function (obj) {
+                            return formatStr(obj.smsContent)//
+                        }
+                    },
+                    {
+                        "data": function (obj) {
+                            return formatStatus(obj.status)//
+                        }
+                    },
+                    {"data": "smsOther", "orderable": false},
+                    {"data": "memo", "orderable": false}
+                    /*,
+                    {
+                        "data": null,
+                        "className": "center",
+                        "defaultContent": '<button type="button" id="editrow" data-toggle="modal" class="btn btn-outline btn-circle btn-sm purple"><i class="fa fa-edit"></i></button>  <button id="delrow" class="btn btn-outline btn-circle dark btn-sm black"><i class="fa fa-trash-o"></i></button>'
+                    }*/
+                ]
+            }).api();
+            //此处需调用api()方法,否则返回的是JQuery对象而不是DataTables的API对象
+
+
+        } catch (e) {
+            alert(e);
+        }
+    });
+
+    //表数据删除
+    /* $('#ht-dataTables').on( 'click','button#delrow',function (even) {
+          even.preventDefault;//方法阻止元素发生默认的行为（例如，当点击提交按钮时阻止对表单的提交）。
+          if(confirm("确定删除该信息?") == false){
+              return;
+          }else{
+              /!* 得到当前对象的值 *!/
+              var data = $("#ht-dataTables").DataTable().row( $(this).parents('tr') ).data();
+              $.ajax({
+                  url: 'tradeRecord_delete',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {"id":data.id},
+                  /!* success是指后台数据库的表么？如果是，先将success表中相关的数据封装在list里面，然后将list转为json数据格式的字符串返回到前台。如果你用的是jQuery的ajax方法，那么记得在前台接受的时候一定要指定数据接受格式为json,否则你得到是一个json的字符串，不是一个json的对象 *!/
+                  success: function(data){
+                      alert(data.success);
+                      if (data.success =="success" ){
+                          alert('删除成功!');
+                          start = $("#ht-dataTables").dataTable().fnSettings()._iDisplayStart;//从第几行开始显示数据
+                          total = $("#ht-dataTables").dataTable().fnSettings().fnRecordsDisplay();//
+                          alert(start);
+                          alert(total);
+                          window.location.reload();
+                          if((total-start) == 1){
+                              if (start > 0) {
+                                  $("#ht-dataTables").dataTable().fnPageChange( 'previous', true);//已回到上一页中
+                                  /!* 注意$("#sorting-advanced").dataTable().fnPageChange( ‘previous‘); 是不行的，必需进行刷新，否则页面中显示的iDisplayStart会从cookie中取得，还是删除前的iDisplayStart *!/
+                              }
+                          }
+                      }
+                  },
+                  error:function(data){
+                      alert(data.success);
+                      console.log(data);
+                      alert('服务器无响应，请联系管理员!');
+                  }
+              })
+          }
+      });
+  */
+    function formatStatus(str) {
+        if(str ==1){
+            return '发送中';
+        }else if(str ==2){
+            return '发送成功';
+        }else if(str ==3){
+            return '发送失败';
+        }
+    }
+
+    function formatStr(str){
+        return str.replace(/</,'&lt;').replace(/>/,'&gt;');
+    }
+
+    function query() {
+        $('#smsTable').DataTable().ajax.reload();
+    }
+</script>
+</body>
+</html>

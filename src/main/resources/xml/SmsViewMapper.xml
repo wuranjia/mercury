@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.lang.mercury.dao.SmsViewMapper">
+    <resultMap id="BaseResultMap" type="com.hy.lang.mercury.pojo.SmsView">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="sms_id" jdbcType="BIGINT" property="smsId"/>
+        <result column="sms_content" jdbcType="VARCHAR" property="smsContent"/>
+        <result column="service_id" jdbcType="VARCHAR" property="serviceId"/>
+        <result column="sim_no" jdbcType="VARCHAR" property="simNo"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="updated_by" jdbcType="VARCHAR" property="updatedBy"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id,sms_id, sms_content, service_id, sim_no, memo, created_time, created_by, updated_time,
+    updated_by
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_sms_view
+        where sms_id = #{smsId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_m_sms_view
+    where sms_id = #{smsId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.hy.lang.mercury.pojo.SmsView">
+    insert into t_m_sms_view (sms_id, sms_content, service_id, 
+      sim_no, memo, created_time, 
+      created_by, updated_time, updated_by
+      )
+    values (#{smsId,jdbcType=BIGINT}, #{smsContent,jdbcType=VARCHAR}, #{serviceId,jdbcType=VARCHAR}, 
+      #{simNo,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.hy.lang.mercury.pojo.SmsView">
+        insert into t_m_sms_view
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="smsId != null">
+                sms_id,
+            </if>
+            <if test="smsContent != null">
+                sms_content,
+            </if>
+            <if test="serviceId != null">
+                service_id,
+            </if>
+            <if test="simNo != null">
+                sim_no,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="updatedBy != null">
+                updated_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="smsId != null">
+                #{smsId,jdbcType=BIGINT},
+            </if>
+            <if test="smsContent != null">
+                #{smsContent,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceId != null">
+                #{serviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="simNo != null">
+                #{simNo,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                #{updatedBy,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hy.lang.mercury.pojo.SmsView">
+        update t_m_sms_view
+        <set>
+            <if test="smsContent != null">
+                sms_content = #{smsContent,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceId != null">
+                service_id = #{serviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="simNo != null">
+                sim_no = #{simNo,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sms_id = #{smsId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hy.lang.mercury.pojo.SmsView">
+    update t_m_sms_view
+    set sms_content = #{smsContent,jdbcType=VARCHAR},
+      service_id = #{serviceId,jdbcType=VARCHAR},
+      sim_no = #{simNo,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where sms_id = #{smsId,jdbcType=BIGINT}
+  </update>
+
+    <select id="selectByParams" parameterType="com.hy.lang.mercury.resource.req.SmsViewReq"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_sms_view
+        where 1=1
+        <if test="sim != null">
+            AND sim_no = #{sim,jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null">
+            AND service_id = #{userId,jdbcType=VARCHAR}
+        </if>
+        order by sms_id DESC
+        limit #{start},#{limit}
+    </select>
+
+    <select id="countByParams" parameterType="com.hy.lang.mercury.resource.req.SmsViewReq"
+            resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_m_sms_view
+        where 1=1
+        <if test="sim != null">
+            AND sim_no = #{sim,jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null">
+            AND service_id = #{userId,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+    <update id="updateSmsStatus">
+        update t_m_sms_view
+        set
+        memo = #{status,jdbcType=VARCHAR}
+        where sms_id = #{smsId,jdbcType=BIGINT}
+    </update>
+</mapper>

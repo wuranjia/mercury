@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>物联网云服务</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="../static/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="stylesheet" href="../static/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="../static/assets/css/admin.css">
+    <link rel="stylesheet" href="../static/assets/css/app.css">
+</head>
+
+<body data-type="login">
+
+<div class="am-g myapp-login">
+    <div class="myapp-login-logo-block  tpl-login-max">
+        <div class="myapp-login-logo-text">
+            <div class="myapp-login-logo-text">
+                物联网云服务综合管理<span> 平台</span> <i class="am-icon-skyatlas"></i>
+
+            </div>
+        </div>
+
+        <div class="login-font">
+            <!--
+                        <i>登录 </i> or <span> 注册</span>
+            -->
+        </div>
+        <div class="am-u-sm-10 login-am-center">
+            <form id="form1" class="am-form">
+                <fieldset>
+                    <div class="am-form-group">
+                        <input id="userName" name="userName" type="email" class="" placeholder="输入用户名">
+                    </div>
+                    <div class="am-form-group">
+                        <input id="password" name="password" type="password" class="" placeholder="输入密码吧">
+                    </div>
+                    <p>
+                        <a href="javascript:login()" class="am-btn am-btn-default">登录</a>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../static/assets/js/jquery.min.js"></script>
+<script src="http://code.changer.hk/jquery/plugins/jquery.cookie.js"></script>
+<script src="../static/assets/js/amazeui.min.js"></script>
+<script src="../static/assets/js/app.js"></script>
+
+<script>
+
+    var userId;
+
+    /*$(document).ready(function () {
+        userId = $.cookie('userId');
+        if (isNull(userId) != "暂无") {
+            var params = "userId=" + userId;
+            $.ajax({
+                //几个参数需要注意一下
+                type: "get",//方法类型
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/user/login/valid",//url
+                data: params,
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.code == "0000") {
+                        //alert(result.code)
+                        var flag = result.data;
+                        if (flag) {
+                            SetCookie("userId", userId);
+                            window.location.href = "/fe/index";
+                        }
+                    } else {
+                        //alert(result.msg);
+                        // window.location.href = "/";
+                    }
+                },
+                error: function () {
+                    //alert("用户名或密码不正确！");
+                    //window.location.href = "/";
+                }
+            });
+        }
+
+    });*/
+
+    function login() {
+        //alert(JSON.stringify($('#smsForm').serialize()));
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/user/login",//url
+            data: $('#form1').serialize(),
+            success: function (result) {
+                console.log(result);//打印服务端返回的数据(调试用)
+                if (result.code == "0000") {
+                    //alert(result.code)
+                    userId = result.data.user.userId;
+                    SetCookie("userId", userId);
+                    window.location.href = "/fe/index?userId=" + userId;
+                } else {
+                    alert(result.msg);
+                    window.location.href = "/";
+                }
+            },
+            error: function () {
+                alert("用户名或密码不正确！");
+            }
+        });
+    }
+
+    /**
+     * 判断是否null
+     * @param data
+     */
+    function isNull(data) {
+        return (data == "" || data == undefined || data == null) ? "暂无" : data;
+    }
+
+    function SetCookie(name, value) {
+        var today = new Date();
+        var expires = new Date();
+        expires.setTime(today.getTime() + 1000 * 60 * 60 * 24 * 7);
+        document.cookie = name + "=" + escape(value) + "; expires=" + expires.toGMTString() + ";path=/";
+    }
+</script>
+</body>
+
+</html>

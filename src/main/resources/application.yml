@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    name: spring_boot_mybatis
+    #url: jdbc:mysql://10.128.8.130:4001/lang_car_1?characterEncoding=utf8
+    #username: lang_user_1
+    #password: 2MFReSbjQ7afXo3L1Xs
+    url: jdbc:mysql://127.0.0.1:3306/mercury?characterEncoding=utf8
+    username: root
+    password: 123456
+#    type: com.alibaba.druid.pool.DruidDataSource # 使用druid 数据源
+    driver-class-name: com.mysql.jdbc.Driver
+#    dbcp2:
+#      min-idle: 1
+#      max-idle: 2
+#      initial-size: 1
+#      time-between-eviction-runs-millis: 3000
+#      min-evictable-idle-time-millis: 300000
+#      validation-query: SELECT "ZTM" FROM DUAL
+#      test-while-idle: true
+#      test-on-borrow: false
+#      test-on-return: false
+  mvc:
+    static-path-pattern: /static/**
+
+
+mybatis:
+  mapper-locations: classpath:xml/*.xml
+  type-aliases-package: com.hy.lang.mercury.pojo
+
+#配置日志
+logging:
+  #配置日志文件路径
+  path: /root/service/mercury/log
+
+  #level:
+    #root: debug #不同目录下的日志可配置不同级别
+    #org.springfromework.web: info
+    #org.hibernate: error
+
+server:
+  port: 18182
+  #address:  114.80.227.152

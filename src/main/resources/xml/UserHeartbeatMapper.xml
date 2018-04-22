@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.lang.mercury.dao.UserHeartbeatMapper">
+  <resultMap id="BaseResultMap" type="com.hy.lang.mercury.pojo.UserHeartbeat">
+    <id column="hb_id" jdbcType="BIGINT" property="hbId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="hb_time" jdbcType="TIMESTAMP" property="hbTime" />
+    <result column="call_url" jdbcType="VARCHAR" property="callUrl" />
+    <result column="hb_type" jdbcType="INTEGER" property="hbType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    hb_id, user_id, hb_time, call_url, hb_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_m_user_heartbeat
+    where hb_id = #{hbId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_m_user_heartbeat
+    where hb_id = #{hbId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hy.lang.mercury.pojo.UserHeartbeat">
+    insert into t_m_user_heartbeat (hb_id, user_id, hb_time, 
+      call_url, hb_type)
+    values (#{hbId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{hbTime,jdbcType=TIMESTAMP}, 
+      #{callUrl,jdbcType=VARCHAR}, #{hbType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hy.lang.mercury.pojo.UserHeartbeat">
+    insert into t_m_user_heartbeat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hbId != null">
+        hb_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="hbTime != null">
+        hb_time,
+      </if>
+      <if test="callUrl != null">
+        call_url,
+      </if>
+      <if test="hbType != null">
+        hb_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hbId != null">
+        #{hbId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="hbTime != null">
+        #{hbTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callUrl != null">
+        #{callUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="hbType != null">
+        #{hbType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hy.lang.mercury.pojo.UserHeartbeat">
+    update t_m_user_heartbeat
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="hbTime != null">
+        hb_time = #{hbTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callUrl != null">
+        call_url = #{callUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="hbType != null">
+        hb_type = #{hbType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where hb_id = #{hbId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hy.lang.mercury.pojo.UserHeartbeat">
+    update t_m_user_heartbeat
+    set user_id = #{userId,jdbcType=BIGINT},
+      hb_time = #{hbTime,jdbcType=TIMESTAMP},
+      call_url = #{callUrl,jdbcType=VARCHAR},
+      hb_type = #{hbType,jdbcType=INTEGER}
+    where hb_id = #{hbId,jdbcType=BIGINT}
+  </update>
+
+  <!-- ************************************ -->
+  <select id="queryLastRd" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_m_user_heartbeat t
+    where t.hb_id = (
+      select max(hb_id)
+      from t_m_user_heartbeat
+      where user_id = #{userId,jdbcType=BIGINT}
+    )
+
+  </select>
+</mapper>
