@@ -133,4 +133,9 @@ public class SimService implements SimAble {
         return simBaseResp;
     }
 
+    @Override
+    public void assign(String[] cards, String userId) {
+        simBaseMapper.assign(cards,userId);
+    }
+
 }

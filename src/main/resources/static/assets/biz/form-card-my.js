@@ -197,6 +197,7 @@ $(document).ready(function () {
                 param.userId = userId;
                 param.sim = $('#sim').val();
                 param.iccid = $('#iccid').val();
+                param.supplier = -99;
                 //ajax请求数据
                 $.ajax({
                     type: "GET",

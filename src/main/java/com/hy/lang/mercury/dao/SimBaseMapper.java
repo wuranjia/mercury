@@ -39,4 +39,6 @@ public interface SimBaseMapper {
     List<SimBase> selectByCal(@Param("calDay") String calDay);
 
     int updateCal(Map map);
+
+    int assign(@Param("simIds") String[] cards,@Param("supplier") String userId );
 }

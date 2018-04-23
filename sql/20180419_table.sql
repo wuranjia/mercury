@@ -25,6 +25,10 @@ ADD COLUMN `cal_day` VARCHAR(45) NULL AFTER `flow_use_month`;
 
 ------------
 
+
+
+------------
+
 CREATE TABLE `t_m_sim_` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '短信ID',
   `sim_id` varchar(64) NOT NULL DEFAULT '-1' COMMENT 'sim卡号',

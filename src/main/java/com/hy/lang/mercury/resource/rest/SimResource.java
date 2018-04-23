@@ -3,6 +3,7 @@ package com.hy.lang.mercury.resource.rest;
 import com.alibaba.fastjson.JSON;
 import com.hy.lang.mercury.client.cmiot.ClientProxy;
 import com.hy.lang.mercury.client.cmiot.ScheduleService;
+import com.hy.lang.mercury.common.Constants;
 import com.hy.lang.mercury.common.entity.PageList;
 import com.hy.lang.mercury.common.entity.ResponseEntity;
 import com.hy.lang.mercury.common.utils.DateTimeUtils;
@@ -12,6 +13,7 @@ import com.hy.lang.mercury.resource.resp.SimBaseResp;
 import com.hy.lang.mercury.resource.resp.SimFlowMonthResp;
 import com.hy.lang.mercury.resource.resp.SimMatrixResp;
 import com.hy.lang.mercury.service.SimAble;
+import com.hy.lang.mercury.service.UserAble;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,10 +33,13 @@ public class SimResource extends BaseResource {
 
     private final ScheduleService scheduleService;
 
-    public SimResource(SimAble simService, ClientProxy clientProxy, ScheduleService scheduleService) {
+    private final UserAble userService;
+
+    public SimResource(SimAble simService, ClientProxy clientProxy, ScheduleService scheduleService, UserAble userService) {
         this.simService = simService;
         this.clientProxy = clientProxy;
         this.scheduleService = scheduleService;
+        this.userService = userService;
     }
 
     @RequestMapping(path = "/list", method = RequestMethod.GET)
@@ -44,11 +49,17 @@ public class SimResource extends BaseResource {
             @RequestParam int page,
             @RequestParam String sim,
             @RequestParam String iccid,
-            @RequestParam int draw
+            @RequestParam int draw,
+            @RequestParam Long supplier
     ) {
         try {
             SimBaseReq simBaseReq = new SimBaseReq();
-            simBaseReq.setUserId(userId);
+            //simBaseReq.setUserId(userId);
+            if (supplier != null && supplier == -99L) {
+                supplier = null;
+            }
+            simBaseReq.setSupplier(supplier);
+            simBaseReq.setUserIds(userService.getAllChildrenId(userId));
             simBaseReq.setPage(page);
             simBaseReq.setLimit(limit);
             simBaseReq.setDraw(draw);
@@ -107,6 +118,18 @@ public class SimResource extends BaseResource {
             return JSON.toJSONString(ResponseEntity.createByError());
         }
 
+    }
+
+    @RequestMapping(path = "/assign", method = RequestMethod.POST)
+    public String assign(@RequestParam String assignUserId, @RequestParam String cardArray) {
+        try {
+            String[] cards = StringUtils.split(cardArray, Constants.逗号);
+            simService.assign(cards, assignUserId);
+            return JSON.toJSONString(ResponseEntity.createBySuccess());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JSON.toJSONString(ResponseEntity.createByError());
+        }
     }
 
     @RequestMapping(path = "/matrix", method = RequestMethod.GET)

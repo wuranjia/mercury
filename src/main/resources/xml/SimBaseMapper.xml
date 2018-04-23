@@ -378,6 +378,15 @@
         <if test="iccid != null">
             AND iccid = #{iccid,jdbcType=VARCHAR}
         </if>
+        <if test="supplier != null">
+            AND supplier = #{supplier,jdbcType=BIGINT}
+        </if>
+        <if test="userIds != null">
+            and supplier IN
+            <foreach collection="userIds" item="item" index="index" open="(" separator="," close=")">
+                #{item,jdbcType=BIGINT}
+            </foreach>
+        </if>
         order by id DESC
         limit #{start},#{limit}
     </select>
@@ -386,6 +395,9 @@
         select count(1) from t_m_sim_base t where
           <![CDATA[
          t.cal_day is null or t.cal_day <  #{calDay,jdbcType=VARCHAR}
+
+
+
 
         ]]>
     </select>
@@ -418,7 +430,16 @@
         <if test="iccid != null">
             AND iccid = #{iccid,jdbcType=VARCHAR}
         </if>
+        <if test="supplier != null">
+            AND supplier = #{supplier,jdbcType=BIGINT}
+        </if>
 
+        <if test="userIds != null">
+            and supplier IN
+            <foreach collection="userIds" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
     </select>
 
     <select id="count" parameterType="java.util.Map"
@@ -454,8 +475,14 @@
         <if test="statusArrearage != null">
             AND status_arrearage = #{statusArrearage,jdbcType=VARCHAR}
         </if>
-        <if test="supplier != null">
-            AND supplier = #{supplier,jdbcType=BIGINT}
+        <!-- <if test="supplier != null">
+             AND supplier = #{supplier,jdbcType=BIGINT}
+         </if>-->
+        <if test="userIds != null">
+            and supplier IN
+            <foreach collection="userIds" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
         </if>
         <if test="status != null">
             AND status = #{status,jdbcType=VARCHAR}
@@ -505,5 +532,13 @@
 
     </insert>
 
+    <update id="assign">
+        update t_m_sim_base set supplier = #{supplier,jdbcType=BIGINT}
+        where 1=1
+        and sim_id IN
+        <foreach collection="simIds" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
 
 </mapper>

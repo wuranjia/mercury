@@ -20,4 +20,10 @@ public class RouterSimResource extends AbstractResourceMenu {
         return "form-card-my";
     }
 
+    @GetMapping("/fe/card/my_assign")
+    public String assign(ModelMap modelMap) {
+        super.setMenus(modelMap, menuService);
+        return "form-card-my-assign";
+    }
+
 }

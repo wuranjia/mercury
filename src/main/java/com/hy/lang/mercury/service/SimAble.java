@@ -18,4 +18,6 @@ public interface SimAble {
     PageList<SimBase> indexFlowUse(SimBaseReq req);
 
     SimBaseResp indexCardInfo(@NotNull Long userId);
+
+    void assign(String[] cards, String userId);
 }
