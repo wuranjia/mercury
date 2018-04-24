@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Mapper
@@ -23,4 +24,8 @@ public interface MenuRefMapper {
     int updateByPrimaryKey(MenuRef record);
 
     List<MenuRef> selectByUserId(@Param("userId") Long userId);
+
+    int deleteByUserId(@NotNull Long preUserId);
+
+    int batchInsert(List<MenuRef> list);
 }

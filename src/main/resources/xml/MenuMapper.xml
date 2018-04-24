@@ -166,4 +166,13 @@
             </foreach>
         </if>
     </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_menu
+        where
+        1=1
+        and valid = 1
+    </select>
 </mapper>

@@ -1,11 +1,21 @@
 package com.hy.lang.mercury.pojo;
 
+import javax.validation.constraints.NotNull;
+
 public class MenuRef {
     private Long id;
 
     private Long menuId;
 
     private Long userId;
+
+    public MenuRef() {
+    }
+
+    public MenuRef(@NotNull Long preUserId, String mid) {
+        this.userId = preUserId;
+        this.menuId = Long.valueOf(mid);
+    }
 
     public Long getId() {
         return id;

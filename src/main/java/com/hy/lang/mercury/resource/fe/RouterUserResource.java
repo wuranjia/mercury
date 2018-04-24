@@ -39,4 +39,6 @@ public class RouterUserResource extends AbstractResourceMenu {
         super.setMenus(modelMap, menuService);
         return "form-user-detail";
     }
+
+    
 }

@@ -23,4 +23,6 @@ public interface MenuMapper {
     int updateByPrimaryKey(Menu record);
 
     List<Menu> queryByIdList(@Param("list") List<Long> idList);
+
+    List<Menu> selectAll();
 }

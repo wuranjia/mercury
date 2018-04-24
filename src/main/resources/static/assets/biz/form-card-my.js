@@ -445,7 +445,6 @@ function delCookie(name, value) {
 function exit() {
     delCookie("userId", userId);
     window.location.href = "/";
-    window.location.href = "/";
 }
 
 
