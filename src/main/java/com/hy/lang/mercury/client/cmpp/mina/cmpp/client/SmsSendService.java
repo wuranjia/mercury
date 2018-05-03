@@ -7,19 +7,17 @@ import com.hy.lang.mercury.client.cmpp.mina.cmpp.pdu.Tools;
 import com.hy.lang.mercury.client.cmpp.mina.cmpp.sms.ShortMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SmsSendService {
 
+    @Autowired
     private SmsSendProcess smsSendProcess;
 
     private static final Logger logger = LoggerFactory
             .getLogger(SmsSendService.class);
-
-    public void setService(SmsSendProcess t) {
-        smsSendProcess = t;
-    }
 
     public void addMsg(Submit submit) {
         if (smsSendProcess != null) {

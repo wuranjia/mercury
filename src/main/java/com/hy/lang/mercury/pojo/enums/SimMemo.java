@@ -1,11 +1,11 @@
-package com.hy.lang.mercury.pojo;
+package com.hy.lang.mercury.pojo.enums;
 
-public enum StatusOnline {
-    在线("1"), 离线("0");
+public enum SimMemo {
+    移除("0"),未移除("1");
 
     private String code;
 
-    private StatusOnline(String code) {
+    private SimMemo(String code){
         this.code = code;
     }
 
@@ -16,4 +16,4 @@ public enum StatusOnline {
     public void setCode(String code) {
         this.code = code;
     }
-    }
+}

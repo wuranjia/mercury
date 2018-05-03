@@ -1,4 +1,4 @@
-package com.hy.lang.mercury.pojo;
+package com.hy.lang.mercury.pojo.enums;
 
 public enum StatusDeliver {
     开机("1"), 关机("0");

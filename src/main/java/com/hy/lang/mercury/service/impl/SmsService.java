@@ -10,7 +10,7 @@ import com.hy.lang.mercury.dao.SmsViewMapper;
 import com.hy.lang.mercury.pojo.SmsDeliver;
 import com.hy.lang.mercury.pojo.SmsInfo;
 import com.hy.lang.mercury.pojo.SmsView;
-import com.hy.lang.mercury.pojo.SmsViewType;
+import com.hy.lang.mercury.pojo.enums.SmsViewType;
 import com.hy.lang.mercury.resource.req.SmsDeliverReq;
 import com.hy.lang.mercury.resource.req.SmsInfoReq;
 import com.hy.lang.mercury.resource.req.SmsViewReq;

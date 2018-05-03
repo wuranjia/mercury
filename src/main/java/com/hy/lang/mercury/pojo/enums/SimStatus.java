@@ -1,11 +1,11 @@
-package com.hy.lang.mercury.pojo;
+package com.hy.lang.mercury.pojo.enums;
 
-public enum SimOpen {
-    开通("1"), 未开通("0");
+public enum SimStatus {
+    正常("1"), 不正常("0");
 
     private String code;
 
-    private SimOpen(String code) {
+    private SimStatus(String code) {
         this.code = code;
     }
 
@@ -16,4 +16,4 @@ public enum SimOpen {
     public void setCode(String code) {
         this.code = code;
     }
-}
+    }

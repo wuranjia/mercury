@@ -4,6 +4,7 @@ import com.hy.lang.mercury.common.entity.PageList;
 import com.hy.lang.mercury.common.utils.MapUtils;
 import com.hy.lang.mercury.dao.SimBaseMapper;
 import com.hy.lang.mercury.pojo.*;
+import com.hy.lang.mercury.pojo.enums.*;
 import com.hy.lang.mercury.resource.req.SimBaseReq;
 import com.hy.lang.mercury.resource.resp.SimBaseResp;
 import com.hy.lang.mercury.resource.resp.SimMatrixResp;

@@ -1,11 +1,11 @@
-package com.hy.lang.mercury.pojo;
+package com.hy.lang.mercury.pojo.enums;
 
-public enum OverFlow {
-    未超流量("1"), 超流量("0");
+public enum OverSms {
+    未超短信("1"), 超短信("0");
 
     private String code;
 
-    private OverFlow(String code) {
+    private OverSms(String code) {
         this.code = code;
     }
 

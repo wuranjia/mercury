@@ -1,11 +1,11 @@
-package com.hy.lang.mercury.pojo;
+package com.hy.lang.mercury.pojo.enums;
 
-public enum ActivateStatus {
-    激活("1"), 未激活("0");
+public enum FlagExpire {
+    过期("0"), 未过期("1"), 将过期("2"), 未将过期("3");
 
     private String code;
 
-    private ActivateStatus(String code) {
+    private FlagExpire(String code) {
         this.code = code;
     }
 
@@ -16,4 +16,4 @@ public enum ActivateStatus {
     public void setCode(String code) {
         this.code = code;
     }
-    }
+}

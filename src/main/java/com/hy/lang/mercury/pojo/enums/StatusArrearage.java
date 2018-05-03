@@ -1,4 +1,4 @@
-package com.hy.lang.mercury.pojo;
+package com.hy.lang.mercury.pojo.enums;
 
 public enum StatusArrearage {
     正常("1"), 欠费("0"), 未知("-1");

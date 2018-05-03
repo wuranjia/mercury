@@ -1,22 +1,22 @@
 package com.hy.lang.mercury.pojo;
 
 import com.hy.lang.mercury.common.Constants;
-import com.hy.lang.mercury.pojo.enums.SmsViewType;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
-public class SmsView {
+public class Product {
     private Long id;
 
-    private Long smsId;
+    private String name;
 
-    private String smsContent;
+    private BigDecimal flow;
 
-    private String serviceId;
+    private String type;
 
-    private String simNo;
+    private BigDecimal price;
 
-    private String memo;//状态
+    private String memo;
 
     private Date createdTime;
 
@@ -26,20 +26,18 @@ public class SmsView {
 
     private String updatedBy;
 
-    public SmsView() {
+    public Product(){}
 
-    }
-
-    public SmsView(Long smsId, String dest, String smsContent, SmsViewType type, String status) {
-        this.smsId = smsId;
-        this.simNo = dest;
-        this.smsContent = smsContent;
-        this.serviceId = type.name();
-        this.memo = status;
+    public Product(String productName, String type, String flow,String price) {
+        this.name = productName;
+        this.flow = new BigDecimal(flow);
+        this.type = type;
+        this.price = new BigDecimal(price);
+        this.memo = Constants.NVL;
         this.createdTime = new Date();
-        this.createdBy = Constants.NVL;
+        this.createdBy = Constants.SYS;
+        this.updatedBy = Constants.SYS;
         this.updatedTime = new Date();
-        this.updatedBy = Constants.NVL;
     }
 
     public Long getId() {
@@ -50,36 +48,36 @@ public class SmsView {
         this.id = id;
     }
 
-    public Long getSmsId() {
-        return smsId;
+    public String getName() {
+        return name;
     }
 
-    public void setSmsId(Long smsId) {
-        this.smsId = smsId;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getSmsContent() {
-        return smsContent;
+    public BigDecimal getFlow() {
+        return flow;
     }
 
-    public void setSmsContent(String smsContent) {
-        this.smsContent = smsContent == null ? null : smsContent.trim();
+    public void setFlow(BigDecimal flow) {
+        this.flow = flow;
     }
 
-    public String getServiceId() {
-        return serviceId;
+    public String getType() {
+        return type;
     }
 
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId == null ? null : serviceId.trim();
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 
-    public String getSimNo() {
-        return simNo;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setSimNo(String simNo) {
-        this.simNo = simNo == null ? null : simNo.trim();
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getMemo() {

@@ -1,11 +1,11 @@
-package com.hy.lang.mercury.pojo;
+package com.hy.lang.mercury.pojo.enums;
 
-public enum SimMemo {
-    移除("0"),未移除("1");
+public enum SimOpen {
+    开通("1"), 未开通("0");
 
     private String code;
 
-    private SimMemo(String code){
+    private SimOpen(String code) {
         this.code = code;
     }
 

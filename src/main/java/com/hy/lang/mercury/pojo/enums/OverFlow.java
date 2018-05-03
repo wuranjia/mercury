@@ -1,11 +1,11 @@
-package com.hy.lang.mercury.pojo;
+package com.hy.lang.mercury.pojo.enums;
 
-public enum SimStatus {
-    正常("1"), 不正常("0");
+public enum OverFlow {
+    未超流量("1"), 超流量("0");
 
     private String code;
 
-    private SimStatus(String code) {
+    private OverFlow(String code) {
         this.code = code;
     }
 

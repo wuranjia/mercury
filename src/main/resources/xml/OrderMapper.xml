@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.lang.mercury.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.hy.lang.mercury.pojo.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="num" jdbcType="BIGINT" property="num" />
+    <result column="time_long" jdbcType="BIGINT" property="timeLong" />
+    <result column="total" jdbcType="DECIMAL" property="total" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="buyer" jdbcType="BIGINT" property="buyer" />
+    <result column="seller" jdbcType="BIGINT" property="seller" />
+    <result column="status" jdbcType="BIGINT" property="status" />
+    <result column="trans_num" jdbcType="VARCHAR" property="transNum" />
+    <result column="trans_status" jdbcType="VARCHAR" property="transStatus" />
+    <result column="trans_address" jdbcType="VARCHAR" property="transAddress" />
+    <result column="op_user_name" jdbcType="VARCHAR" property="opUserName" />
+    <result column="trans_fee" jdbcType="DECIMAL" property="transFee" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, product_id, num, time_long, total, price, buyer, seller, status, trans_num, 
+    trans_status, trans_address, op_user_name, trans_fee, memo, created_time, created_by, 
+    updated_time, updated_by
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_m_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_m_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hy.lang.mercury.pojo.Order">
+    insert into t_m_order (id, name, product_id, 
+      num, time_long, total, 
+      price, buyer, seller, 
+      status, trans_num, trans_status, 
+      trans_address, op_user_name, trans_fee, 
+      memo, created_time, created_by, 
+      updated_time, updated_by)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT}, 
+      #{num,jdbcType=BIGINT}, #{timeLong,jdbcType=BIGINT}, #{total,jdbcType=DECIMAL}, 
+      #{price,jdbcType=DECIMAL}, #{buyer,jdbcType=BIGINT}, #{seller,jdbcType=BIGINT}, 
+      #{status,jdbcType=BIGINT}, #{transNum,jdbcType=VARCHAR}, #{transStatus,jdbcType=VARCHAR}, 
+      #{transAddress,jdbcType=VARCHAR}, #{opUserName,jdbcType=VARCHAR}, #{transFee,jdbcType=DECIMAL}, 
+      #{memo,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hy.lang.mercury.pojo.Order">
+    insert into t_m_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="timeLong != null">
+        time_long,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="buyer != null">
+        buyer,
+      </if>
+      <if test="seller != null">
+        seller,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="transNum != null">
+        trans_num,
+      </if>
+      <if test="transStatus != null">
+        trans_status,
+      </if>
+      <if test="transAddress != null">
+        trans_address,
+      </if>
+      <if test="opUserName != null">
+        op_user_name,
+      </if>
+      <if test="transFee != null">
+        trans_fee,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=BIGINT},
+      </if>
+      <if test="timeLong != null">
+        #{timeLong,jdbcType=BIGINT},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="buyer != null">
+        #{buyer,jdbcType=BIGINT},
+      </if>
+      <if test="seller != null">
+        #{seller,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="transNum != null">
+        #{transNum,jdbcType=VARCHAR},
+      </if>
+      <if test="transStatus != null">
+        #{transStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="transAddress != null">
+        #{transAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="opUserName != null">
+        #{opUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="transFee != null">
+        #{transFee,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hy.lang.mercury.pojo.Order">
+    update t_m_order
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=BIGINT},
+      </if>
+      <if test="timeLong != null">
+        time_long = #{timeLong,jdbcType=BIGINT},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="buyer != null">
+        buyer = #{buyer,jdbcType=BIGINT},
+      </if>
+      <if test="seller != null">
+        seller = #{seller,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="transNum != null">
+        trans_num = #{transNum,jdbcType=VARCHAR},
+      </if>
+      <if test="transStatus != null">
+        trans_status = #{transStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="transAddress != null">
+        trans_address = #{transAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="opUserName != null">
+        op_user_name = #{opUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="transFee != null">
+        trans_fee = #{transFee,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hy.lang.mercury.pojo.Order">
+    update t_m_order
+    set name = #{name,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=BIGINT},
+      num = #{num,jdbcType=BIGINT},
+      time_long = #{timeLong,jdbcType=BIGINT},
+      total = #{total,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DECIMAL},
+      buyer = #{buyer,jdbcType=BIGINT},
+      seller = #{seller,jdbcType=BIGINT},
+      status = #{status,jdbcType=BIGINT},
+      trans_num = #{transNum,jdbcType=VARCHAR},
+      trans_status = #{transStatus,jdbcType=VARCHAR},
+      trans_address = #{transAddress,jdbcType=VARCHAR},
+      op_user_name = #{opUserName,jdbcType=VARCHAR},
+      trans_fee = #{transFee,jdbcType=DECIMAL},
+      memo = #{memo,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,11 +1,11 @@
-package com.hy.lang.mercury.pojo;
+package com.hy.lang.mercury.pojo.enums;
 
-public enum FlagExpire {
-    过期("0"), 未过期("1"), 将过期("2"), 未将过期("3");
+public enum StatusOnline {
+    在线("1"), 离线("0");
 
     private String code;
 
-    private FlagExpire(String code) {
+    private StatusOnline(String code) {
         this.code = code;
     }
 
@@ -16,4 +16,4 @@ public enum FlagExpire {
     public void setCode(String code) {
         this.code = code;
     }
-}
+    }

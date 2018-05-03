@@ -1,11 +1,11 @@
-package com.hy.lang.mercury.pojo;
+package com.hy.lang.mercury.pojo.enums;
 
-public enum OverSms {
-    未超短信("1"), 超短信("0");
+public enum ActivateStatus {
+    激活("1"), 未激活("0");
 
     private String code;
 
-    private OverSms(String code) {
+    private ActivateStatus(String code) {
         this.code = code;
     }
 

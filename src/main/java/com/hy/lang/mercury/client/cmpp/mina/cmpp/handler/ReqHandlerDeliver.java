@@ -14,7 +14,7 @@ import com.hy.lang.mercury.dao.SmsDeliverMapper;
 import com.hy.lang.mercury.dao.SmsViewMapper;
 import com.hy.lang.mercury.pojo.SmsDeliver;
 import com.hy.lang.mercury.pojo.SmsView;
-import com.hy.lang.mercury.pojo.SmsViewType;
+import com.hy.lang.mercury.pojo.enums.SmsViewType;
 import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

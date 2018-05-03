@@ -2,7 +2,6 @@ package com.hy.lang.mercury.client.cmpp.mina.cmpp.handler;
 
 import com.hy.lang.mercury.client.cmpp.mina.cmpp.CmppConstant;
 import com.hy.lang.mercury.client.cmpp.mina.cmpp.client.SmsSendProcess;
-import com.hy.lang.mercury.client.cmpp.mina.cmpp.client.SmsSendService;
 import com.hy.lang.mercury.client.cmpp.mina.cmpp.pdu.CmppPDU;
 import com.hy.lang.mercury.client.cmpp.mina.cmpp.pdu.ConnectResp;
 import com.hy.lang.mercury.common.McException;
@@ -22,10 +21,14 @@ public class RespHandlerConnect implements IReceiveHandler {
 
     private ExecutorService exec = Executors.newSingleThreadExecutor();
 
-    @Autowired
-    private SmsSendService smsSendService;
+    private static IoSession ioSession;
 
+    @Autowired
     private SmsSendProcess smsSendProcess;
+
+    public static IoSession getIoSession() {
+        return ioSession;
+    }
 
     @Override
     public void doingWork(CmppPDU pdu, IoSession session) throws McException {
@@ -38,13 +41,16 @@ public class RespHandlerConnect implements IReceiveHandler {
             s.setDaemon(true);
             s.start();*/
             //MsgSendThread t = new MsgSendThread(session);
-            if (smsSendProcess == null) {
-                smsSendProcess = new SmsSendProcess(session);
-                exec.execute(smsSendProcess);
+            // TODO: 18/4/25 这里不能判断空，不然session永远是旧的
+            /*if (session == null) {
+
                 //注入到sendService
                 smsSendService.setService(smsSendProcess);
-            }
-            logger.info("start sendSmsProcess ..................processing");
+            }*/
+            smsSendProcess.init();
+            exec.execute(smsSendProcess);
+            ioSession = session;
+            logger.info("start sendSmsProcess ..................processing : ioSession = " + ioSession.getId());
 
         } else {
 

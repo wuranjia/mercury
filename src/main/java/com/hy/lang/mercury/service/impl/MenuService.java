@@ -28,6 +28,9 @@ public class MenuService implements MenuAble {
         for (MenuRef menuRef : list) {
             idList.add(menuRef.getMenuId());
         }
+        if (idList.isEmpty()) {
+            return new ArrayList<Menu>();
+        }
         List<Menu> menuList = menuMapper.queryByIdList(idList);
         return menuList;
     }
@@ -49,7 +52,7 @@ public class MenuService implements MenuAble {
         String[] menuIdArray = menuIds.split(",");
         List<MenuRef> list = new ArrayList<MenuRef>();
         for (String mid : menuIdArray) {
-            MenuRef menuRef = new MenuRef(preUserId,mid);
+            MenuRef menuRef = new MenuRef(preUserId, mid);
             list.add(menuRef);
         }
         menuRefMapper.deleteByUserId(preUserId);
