@@ -26,4 +26,6 @@ public interface StoreMapper {
     int countByParams(StoreReq req);
 
     List<Store> selectByParams(StoreReq req);
+
+    Store selectByOrderId(Long orderId);
 }

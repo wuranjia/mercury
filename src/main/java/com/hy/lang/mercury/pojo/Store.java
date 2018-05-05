@@ -1,5 +1,7 @@
 package com.hy.lang.mercury.pojo;
 
+import com.hy.lang.mercury.common.Constants;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -26,9 +28,9 @@ public class Store {
 
     private String name;
 
-    private BigDecimal flow;
-
     private String productType;
+
+    private String flow;
 
     private String memo;
 
@@ -39,6 +41,37 @@ public class Store {
     private Date updatedTime;
 
     private String updatedBy;
+
+    public Store() {
+    }
+
+    public Store(Order order, Product product,String storeType) {
+        this.orderId = order.getId();
+        this.productId = order.getProductId();
+        this.storeType = storeType;
+        this.cardNum = order.getNum();
+        this.price = product.getPrice();
+        this.buyer = order.getBuyer();
+        this.seller = order.getSeller();
+        this.total = order.getTotal();
+        this.transNum = order.getTransNum();
+        this.name = product.getName();
+        this.productType = product.getType();
+        this.flow = product.getFlow();
+        this.createdBy = Constants.SYS;
+        this.updatedBy = Constants.SYS;
+        this.createdTime = new Date();
+        this.updatedTime = new Date();
+        this.memo = Constants.NVL;
+    }
+
+    public String getFlow() {
+        return flow;
+    }
+
+    public void setFlow(String flow) {
+        this.flow = flow;
+    }
 
     public Long getId() {
         return id;
@@ -126,14 +159,6 @@ public class Store {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public BigDecimal getFlow() {
-        return flow;
-    }
-
-    public void setFlow(BigDecimal flow) {
-        this.flow = flow;
     }
 
     public String getProductType() {

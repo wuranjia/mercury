@@ -26,4 +26,6 @@ public interface OrderAble {
 
     //填写发货信息
     Order transInfo(TransReq req);
+
+    int payConfirm(OrderReq req);
 }

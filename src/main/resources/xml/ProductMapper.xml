@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.hy.lang.mercury.pojo.Product">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="flow" jdbcType="DECIMAL" property="flow" />
+    <result column="flow" jdbcType="VARCHAR" property="flow" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="memo" jdbcType="VARCHAR" property="memo" />
@@ -31,7 +31,7 @@
       type, price, memo, 
       created_time, created_by, updated_time, 
       updated_by)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{flow,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{flow,jdbcType=VARCHAR},
       #{type,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{memo,jdbcType=VARCHAR}, 
       #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, 
       #{updatedBy,jdbcType=VARCHAR})
@@ -78,7 +78,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="flow != null">
-        #{flow,jdbcType=DECIMAL},
+        #{flow,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=VARCHAR},
@@ -110,7 +110,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="flow != null">
-        flow = #{flow,jdbcType=DECIMAL},
+        flow = #{flow,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
@@ -139,7 +139,7 @@
   <update id="updateByPrimaryKey" parameterType="com.hy.lang.mercury.pojo.Product">
     update t_m_product
     set name = #{name,jdbcType=VARCHAR},
-      flow = #{flow,jdbcType=DECIMAL},
+      flow = #{flow,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       memo = #{memo,jdbcType=VARCHAR},
@@ -149,4 +149,28 @@
       updated_by = #{updatedBy,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectByParams" parameterType="com.hy.lang.mercury.resource.req.ProductReq" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_m_product
+    where 1=1
+    <if test="type != null">
+      and type = #{type,jdbcType=VARCHAR}
+    </if>
+    order by id DESC
+    limit #{start},#{limit}
+  </select>
+
+  <select id="countByParams" parameterType="com.hy.lang.mercury.resource.req.ProductReq"
+          resultType="java.lang.Integer">
+    select
+    count(1)
+    from t_m_product
+    where 1=1
+    <if test="type != null">
+      and type = #{type,jdbcType=VARCHAR}
+    </if>
+
+  </select>
 </mapper>

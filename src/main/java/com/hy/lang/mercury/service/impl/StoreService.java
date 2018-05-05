@@ -72,8 +72,13 @@ public class StoreService implements StoreAble {
         storeDetailMapper.deleteByStoreId(req.getStoreId());
 
         Long orderId = store.getOrderId();
-        orderMapper.updatetransStatus(orderId,
-                store.getStoreType().equals(TransStatus.已入库.name())?TransStatus.待入库.name():TransStatus.待出库.name());
+        orderMapper.updateTransStatus(orderId,
+                store.getStoreType().equals(TransStatus.已发货_待收货.name()) ? TransStatus.代发货.name() : TransStatus.代发货.name());
         return 0;
+    }
+
+    @Override
+    public String export(StoreReq req) {
+        return null;
     }
 }

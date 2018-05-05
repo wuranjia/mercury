@@ -2,8 +2,6 @@ package com.hy.lang.mercury.resource.req;
 
 import com.hy.lang.mercury.common.entity.PageParam;
 
-import java.math.BigDecimal;
-
 public class TransReq extends PageParam {
 
     private Long orderId;
@@ -12,7 +10,9 @@ public class TransReq extends PageParam {
 
     private String transAddress;
 
-    private BigDecimal transFee;
+    private String transPerson;
+
+    private String transPhone;
 
     private String transStatus;
 
@@ -24,12 +24,20 @@ public class TransReq extends PageParam {
         this.transStatus = transStatus;
     }
 
-    public BigDecimal getTransFee() {
-        return transFee;
+    public String getTransPerson() {
+        return transPerson;
     }
 
-    public void setTransFee(BigDecimal transFee) {
-        this.transFee = transFee;
+    public void setTransPerson(String transPerson) {
+        this.transPerson = transPerson;
+    }
+
+    public String getTransPhone() {
+        return transPhone;
+    }
+
+    public void setTransPhone(String transPhone) {
+        this.transPhone = transPhone;
     }
 
     public String getTransNum() {

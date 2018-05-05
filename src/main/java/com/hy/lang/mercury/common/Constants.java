@@ -21,6 +21,7 @@ public class Constants {
     public static final String SYS = "sys";
     public static final String cookie = "cookie";
     public static final String 逗号 = ",";
+    public static final Long SELLER = 1L;//admin
 
     public static Long getUserId(HttpServletRequest request) {
         Long userId = null;

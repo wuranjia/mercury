@@ -23,7 +23,7 @@ public interface OrderMapper {
 
     int updateByPrimaryKey(Order record);
 
-    Order insertOrder(Order order);
+    int insertOrder(Order order);
 
     void updateTrans(Order order);
 
@@ -31,5 +31,7 @@ public interface OrderMapper {
 
     List<Order> selectByParams(OrderReq req);
 
-    void updatetransStatus(@Param("id") Long orderId, @Param("transStatus") String transStatus);
+    void updateTransStatus(@Param("id") Long orderId, @Param("transStatus") String transStatus);
+
+    int updateOrderStatus(@Param("id") Long orderId, @Param("status") Long status);
 }

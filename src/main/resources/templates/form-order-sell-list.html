@@ -87,7 +87,7 @@
         <div class="tpl-portlet-components">
             <div class="portlet-title">
                 <div class="tpl-block">
-                    <legend><h5>产品列表</h5></legend>
+                    <legend><h5>销售列表</h5></legend>
                 </div>
             </div>
             <div class="portlet-title">
@@ -133,15 +133,19 @@
                     <div class="am-g">
                         <div class="am-u-sm-12">
                             <form class="am-form">
-                                <table id="productTable"
+                                <table id="orderTable"
                                        class="am-table am-table-striped am-table-hover table-main am-table-compact">
                                     <thead>
                                     <tr>
-                                        <th>产品ID</th>
+                                        <th>订单号</th>
                                         <th>产品名称</th>
-                                        <th>流量</th>
-                                        <th>类别</th>
-                                        <th>续费单价</th>
+                                        <th>订单时间</th>
+                                        <th>收件地址</th>
+                                        <th>邮费</th>
+                                        <th>支付金额</th>
+                                        <th>订单状态</th>
+                                        <th>物流状态</th>
+                                        <th>备注</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -162,112 +166,61 @@
 <script src="../../static/assets/biz/common.js"></script>
 <script src="../../static/assets/js/amazeui.min.js"></script>
 <script src="../../static/assets/js/app.js"></script><!-- 全屏按鈕+菜單 -->
-<script src="../../static/assets/biz/form-product-list.js"></script>
+<script src="../../static/assets/biz/form-order-sell-list.js"></script>
 
 
 <!--模态框-->
-<div class="am-modal am-modal-alert" tabindex="10000" id="buy">
+<div class="am-modal am-modal-alert" tabindex="10000" id="trans">
     <div class="am-modal-dialog">
-        <div class="am-modal-hd">下单</div>
+        <div class="am-modal-hd">发货</div>
         <div class="am-modal-bd">
             <!--模态框内容-->
             <div class="am-u-sm-12">
-                <form id="buyForm" class="am-form" data-am-validator>
+                <form id="transForm" class="am-form" data-am-validator>
                     <fieldset>
                         <div class="am-g am-margin-top  am-form-group am-form-group-sm">
-                            <div class="am-u-sm-3 am-u-md-2 am-text-left am-text-xs">
-                                产品:
+                            <div class="am-u-sm-3 am-u-md-3 am-text-left am-text-xs">
+                                发货地址:
                             </div>
-                            <div class="am-u-sm-9 am-u-md-10 am-text-left">
+                            <div class="am-u-sm-9 am-u-md-9 am-text-left">
                                 <input class="am-form-field am-input-xs" disabled="disabled" type="text"
-                                       id="productName"
-                                >
+                                       id="transAddress">
                             </div>
                         </div>
                         <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                            <div class="am-u-sm-3 am-u-md-2 am-text-left  am-text-xs">
-                                单价(元):
+                            <div class="am-u-sm-3 am-u-md-3 am-text-left  am-text-xs">
+                                联系人:
                             </div>
-                            <div class="am-u-sm-9 am-u-md-10 am-text-left">
-                                <input class="am-form-field am-input-xs" type="text" id="price"
+                            <div class="am-u-sm-9 am-u-md-9 am-text-left">
+                                <input class="am-form-field am-input-xs" type="text" id="transPerson"
                                        disabled="disabled">
                             </div>
                         </div>
                         <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                            <div class="am-u-sm-3 am-u-md-2 am-text-left  am-text-xs">
-                                数量(张):
+                            <div class="am-u-sm-3 am-u-md-3 am-text-left  am-text-xs">
+                                联系电话:
                             </div>
-                            <div class="am-u-sm-9 am-u-md-10 am-text-left">
-                                <input class="am-form-field am-input-xs" type="text" id="num"
-                                       placeholder="数量" required/>
-                            </div>
-                        </div>
-                        <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                            <div class="am-u-sm-3 am-u-md-2 am-text-left  am-text-xs">
-                                时长(月):
-                            </div>
-                            <div class="am-u-sm-9 am-u-md-10 am-text-left">
-                                <input class="am-form-field am-input-xs" type="text" id="period"
-                                       placeholder="时长" required/>
-                            </div>
-                        </div>
-                        <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                            <div class="am-u-sm-3 am-u-md-2 am-text-left  am-text-xs">
-                                收货人:
-                            </div>
-                            <div class="am-u-sm-9 am-u-md-10 am-text-left">
-                                <input class="am-form-field am-input-xs" type="text" id="transPerson"
-                                       placeholder="收货人" required>
-                            </div>
-                        </div>
-                        <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                            <div class="am-u-sm-3 am-u-md-2 am-text-left  am-text-xs">
-                                联系方式:
-                            </div>
-                            <div class="am-u-sm-9 am-u-md-10 am-text-left">
+                            <div class="am-u-sm-9 am-u-md-9 am-text-left">
                                 <input class="am-form-field am-input-xs" type="text" id="transPhone"
-                                       placeholder="联系方式" required>
+                                       disabled="disabled">
                             </div>
                         </div>
                         <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                            <div class="am-u-sm-3 am-u-md-2 am-text-left  am-text-xs">
-                                快递方式:
+                            <div class="am-u-sm-3 am-u-md-3 am-text-left  am-text-xs">
+                                快递单号:
                             </div>
-                            <div class="am-u-sm-9 am-u-md-10 am-text-left">
-                                <select id="transType" name="transType" data-am-selected>
-                                    <option value="顺丰">顺丰</option>
-                                    <option value="普通" selected>普通</option>
-                                    <option value="到付">到付</option>
-                                </select>
+                            <div class="am-u-sm-9 am-u-md-9 am-text-left">
+                                <input class="am-form-field am-input-xs" type="text" id="transNum"
+                                       >
                             </div>
                         </div>
-
-                        <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                            <div class="am-u-sm-3 am-u-md-2 am-text-left  am-text-xs">
-                                收货地址:
-                            </div>
-                            <div class="am-u-sm-9 am-u-md-10 am-text-left">
-                                <input class="am-form-field am-input-xs" type="text" id="transAddress"
-                                       placeholder="收货地址" required>
-                            </div>
-                        </div>
-                        <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                            <div class="am-u-sm-3 am-u-md-2 am-text-left  am-text-xs">
-                                备注:
-                            </div>
-                            <div class="am-u-sm-9 am-u-md-10 am-text-left">
-                                <input class="am-form-field am-input-xs" type="text" id="memo"
-                                       placeholder="备注">
-                            </div>
-                        </div>
-                        <legend>显示验证提示信息</legend>
                     </fieldset>
                 </form>
             </div>
         </div>
         <div class="am-modal-footer">
             <!--关键是在这里为两个按钮加上data-am-modal-confirm与data-am-modal-cancel属性-->
-            <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确认</span>
             <span class="am-modal-btn" data-am-modal-cancel>关闭</span>
         </div>
     </div>

@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hy.lang.mercury.dao.StoreMapper">
-  <resultMap id="BaseResultMap" type="com.hy.lang.mercury.pojo.Store">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="order_id" jdbcType="BIGINT" property="orderId" />
-    <result column="product_id" jdbcType="BIGINT" property="productId" />
-    <result column="store_type" jdbcType="VARCHAR" property="storeType" />
-    <result column="card_num" jdbcType="BIGINT" property="cardNum" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="buyer" jdbcType="BIGINT" property="buyer" />
-    <result column="seller" jdbcType="BIGINT" property="seller" />
-    <result column="total" jdbcType="DECIMAL" property="total" />
-    <result column="trans_num" jdbcType="VARCHAR" property="transNum" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="flow" jdbcType="DECIMAL" property="flow" />
-    <result column="product_type" jdbcType="VARCHAR" property="productType" />
-    <result column="memo" jdbcType="VARCHAR" property="memo" />
-    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
-    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
-    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
-    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.hy.lang.mercury.pojo.Store">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="order_id" jdbcType="BIGINT" property="orderId"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+        <result column="store_type" jdbcType="VARCHAR" property="storeType"/>
+        <result column="card_num" jdbcType="BIGINT" property="cardNum"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="buyer" jdbcType="BIGINT" property="buyer"/>
+        <result column="seller" jdbcType="BIGINT" property="seller"/>
+        <result column="total" jdbcType="DECIMAL" property="total"/>
+        <result column="trans_num" jdbcType="VARCHAR" property="transNum"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="flow" jdbcType="VARCHAR" property="flow"/>
+        <result column="product_type" jdbcType="VARCHAR" property="productType"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="updated_by" jdbcType="VARCHAR" property="updatedBy"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, order_id, product_id, store_type, card_num, price, buyer, seller, total, trans_num, 
     name, flow, product_type, memo, created_time, created_by, updated_time, updated_by
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_m_store
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_store
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_m_store
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.hy.lang.mercury.pojo.Store">
+    <insert id="insert" parameterType="com.hy.lang.mercury.pojo.Store">
     insert into t_m_store (id, order_id, product_id, 
       store_type, card_num, price, 
       buyer, seller, total, 
@@ -46,184 +46,184 @@
     values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
       #{storeType,jdbcType=VARCHAR}, #{cardNum,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, 
       #{buyer,jdbcType=BIGINT}, #{seller,jdbcType=BIGINT}, #{total,jdbcType=DECIMAL}, 
-      #{transNum,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{flow,jdbcType=DECIMAL}, 
+      #{transNum,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{flow,jdbcType=VARCHAR},
       #{productType,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
       #{createdBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hy.lang.mercury.pojo.Store">
-    insert into t_m_store
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="orderId != null">
-        order_id,
-      </if>
-      <if test="productId != null">
-        product_id,
-      </if>
-      <if test="storeType != null">
-        store_type,
-      </if>
-      <if test="cardNum != null">
-        card_num,
-      </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="buyer != null">
-        buyer,
-      </if>
-      <if test="seller != null">
-        seller,
-      </if>
-      <if test="total != null">
-        total,
-      </if>
-      <if test="transNum != null">
-        trans_num,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="flow != null">
-        flow,
-      </if>
-      <if test="productType != null">
-        product_type,
-      </if>
-      <if test="memo != null">
-        memo,
-      </if>
-      <if test="createdTime != null">
-        created_time,
-      </if>
-      <if test="createdBy != null">
-        created_by,
-      </if>
-      <if test="updatedTime != null">
-        updated_time,
-      </if>
-      <if test="updatedBy != null">
-        updated_by,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=BIGINT},
-      </if>
-      <if test="productId != null">
-        #{productId,jdbcType=BIGINT},
-      </if>
-      <if test="storeType != null">
-        #{storeType,jdbcType=VARCHAR},
-      </if>
-      <if test="cardNum != null">
-        #{cardNum,jdbcType=BIGINT},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="buyer != null">
-        #{buyer,jdbcType=BIGINT},
-      </if>
-      <if test="seller != null">
-        #{seller,jdbcType=BIGINT},
-      </if>
-      <if test="total != null">
-        #{total,jdbcType=DECIMAL},
-      </if>
-      <if test="transNum != null">
-        #{transNum,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="flow != null">
-        #{flow,jdbcType=DECIMAL},
-      </if>
-      <if test="productType != null">
-        #{productType,jdbcType=VARCHAR},
-      </if>
-      <if test="memo != null">
-        #{memo,jdbcType=VARCHAR},
-      </if>
-      <if test="createdTime != null">
-        #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdBy != null">
-        #{createdBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updatedTime != null">
-        #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedBy != null">
-        #{updatedBy,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hy.lang.mercury.pojo.Store">
-    update t_m_store
-    <set>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=BIGINT},
-      </if>
-      <if test="productId != null">
-        product_id = #{productId,jdbcType=BIGINT},
-      </if>
-      <if test="storeType != null">
-        store_type = #{storeType,jdbcType=VARCHAR},
-      </if>
-      <if test="cardNum != null">
-        card_num = #{cardNum,jdbcType=BIGINT},
-      </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="buyer != null">
-        buyer = #{buyer,jdbcType=BIGINT},
-      </if>
-      <if test="seller != null">
-        seller = #{seller,jdbcType=BIGINT},
-      </if>
-      <if test="total != null">
-        total = #{total,jdbcType=DECIMAL},
-      </if>
-      <if test="transNum != null">
-        trans_num = #{transNum,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="flow != null">
-        flow = #{flow,jdbcType=DECIMAL},
-      </if>
-      <if test="productType != null">
-        product_type = #{productType,jdbcType=VARCHAR},
-      </if>
-      <if test="memo != null">
-        memo = #{memo,jdbcType=VARCHAR},
-      </if>
-      <if test="createdTime != null">
-        created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdBy != null">
-        created_by = #{createdBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updatedTime != null">
-        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedBy != null">
-        updated_by = #{updatedBy,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.hy.lang.mercury.pojo.Store">
+    <insert id="insertSelective" parameterType="com.hy.lang.mercury.pojo.Store">
+        insert into t_m_store
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="productId != null">
+                product_id,
+            </if>
+            <if test="storeType != null">
+                store_type,
+            </if>
+            <if test="cardNum != null">
+                card_num,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="buyer != null">
+                buyer,
+            </if>
+            <if test="seller != null">
+                seller,
+            </if>
+            <if test="total != null">
+                total,
+            </if>
+            <if test="transNum != null">
+                trans_num,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="flow != null">
+                flow,
+            </if>
+            <if test="productType != null">
+                product_type,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="updatedBy != null">
+                updated_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=BIGINT},
+            </if>
+            <if test="storeType != null">
+                #{storeType,jdbcType=VARCHAR},
+            </if>
+            <if test="cardNum != null">
+                #{cardNum,jdbcType=BIGINT},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="buyer != null">
+                #{buyer,jdbcType=BIGINT},
+            </if>
+            <if test="seller != null">
+                #{seller,jdbcType=BIGINT},
+            </if>
+            <if test="total != null">
+                #{total,jdbcType=DECIMAL},
+            </if>
+            <if test="transNum != null">
+                #{transNum,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="flow != null">
+                #{flow,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                #{updatedBy,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hy.lang.mercury.pojo.Store">
+        update t_m_store
+        <set>
+            <if test="orderId != null">
+                order_id = #{orderId,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId,jdbcType=BIGINT},
+            </if>
+            <if test="storeType != null">
+                store_type = #{storeType,jdbcType=VARCHAR},
+            </if>
+            <if test="cardNum != null">
+                card_num = #{cardNum,jdbcType=BIGINT},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="buyer != null">
+                buyer = #{buyer,jdbcType=BIGINT},
+            </if>
+            <if test="seller != null">
+                seller = #{seller,jdbcType=BIGINT},
+            </if>
+            <if test="total != null">
+                total = #{total,jdbcType=DECIMAL},
+            </if>
+            <if test="transNum != null">
+                trans_num = #{transNum,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="flow != null">
+                flow = #{flow,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                product_type = #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hy.lang.mercury.pojo.Store">
     update t_m_store
     set order_id = #{orderId,jdbcType=BIGINT},
       product_id = #{productId,jdbcType=BIGINT},
@@ -235,7 +235,7 @@
       total = #{total,jdbcType=DECIMAL},
       trans_num = #{transNum,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
-      flow = #{flow,jdbcType=DECIMAL},
+      flow = #{flow,jdbcType=VARCHAR},
       product_type = #{productType,jdbcType=VARCHAR},
       memo = #{memo,jdbcType=VARCHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
@@ -244,4 +244,50 @@
       updated_by = #{updatedBy,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+    <select id="selectByParams" parameterType="com.hy.lang.mercury.resource.req.StoreReq" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_store
+        where 1=1
+        <if test="buyer != null">
+            and buyer = #{buyer,jdbcType=BIGINT}
+        </if>
+        <if test="seller != null">
+            and seller = #{seller,jdbcType=BIGINT}
+        </if>
+        <if test="storeType != null">
+            and store_type != #{storeType,jdbcType=BIGINT}
+        </if>
+        order by id DESC
+        limit #{start},#{limit}
+    </select>
+
+    <select id="selectByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_store
+        where 1=1
+       and order_id = #{orderId,jdbcType=BIGINT}
+    </select>
+
+    <select id="countByParams" parameterType="com.hy.lang.mercury.resource.req.StoreReq"
+            resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_m_store
+        where 1=1
+        <if test="buyer != null">
+            and buyer = #{buyer,jdbcType=BIGINT}
+        </if>
+        <if test="seller != null">
+            and seller = #{seller,jdbcType=BIGINT}
+        </if>
+        <if test="storeType != null">
+            and store_type != #{storeType,jdbcType=BIGINT}
+        </if>
+
+    </select>
+
 </mapper>

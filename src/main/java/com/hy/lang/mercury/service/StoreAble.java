@@ -21,4 +21,6 @@ public interface StoreAble {
 
     //撤回
     int delete(StoreReq req);
+
+    String export(StoreReq req);
 }

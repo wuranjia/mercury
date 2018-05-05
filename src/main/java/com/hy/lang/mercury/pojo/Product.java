@@ -10,7 +10,7 @@ public class Product {
 
     private String name;
 
-    private BigDecimal flow;
+    private String flow;
 
     private String type;
 
@@ -26,11 +26,12 @@ public class Product {
 
     private String updatedBy;
 
-    public Product(){}
+    public Product() {
+    }
 
-    public Product(String productName, String type, String flow,String price) {
+    public Product(String productName, String type, String flow, String price) {
         this.name = productName;
-        this.flow = new BigDecimal(flow);
+        this.flow = flow;
         this.type = type;
         this.price = new BigDecimal(price);
         this.memo = Constants.NVL;
@@ -56,11 +57,11 @@ public class Product {
         this.name = name == null ? null : name.trim();
     }
 
-    public BigDecimal getFlow() {
+    public String getFlow() {
         return flow;
     }
 
-    public void setFlow(BigDecimal flow) {
+    public void setFlow(String flow) {
         this.flow = flow;
     }
 

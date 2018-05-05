@@ -4,10 +4,10 @@ $(function () {
 
     userId = checkSession();
 
-    $('#buyForm').validator(validator);
+    $('#transForm').validator(validator);
 
     //初始化表格
-    var table = $("#productTable").dataTable({
+    var table = $("#orderTable").dataTable({
         language: lang, //提示信息
         autoWidth: false, //禁用自动调整列宽
         stripeClasses: ["odd", "even"], //为奇偶行加上样式，兼容不支持CSS伪类的场合
@@ -31,7 +31,7 @@ $(function () {
             // 美化滚动条
             //niceScrollBar();
             // datatables 分页插件，放到左下角
-            $("#productTable_paginate").addClass('right');
+            $("#orderTable_paginate").addClass('right');
         },
         ajax: function (data, callback, settings) {
             //封装请求参数
@@ -40,15 +40,15 @@ $(function () {
             param.start = data.start;//开始的记录序号
             param.page = (data.start / data.length) + 1;//当前页码
             param.draw = data.draw;
-            param.userId = null;
-            param.type = '';
+            param.seller = userId;
 
             //ajax请求数据
             $.ajax({
-                type: "GET",
-                url: "/product/list",
+                type: "POST",
+                url: "/order/sell/list",
+                contentType: "application/json; charset=UTF-8",
                 cache: false, //禁用缓存
-                data: param, //传入组装的参数
+                data: JSON.stringify(param), //传入组装的参数
                 dataType: "json",
                 success: function (result) {
                     //封装返回数据
@@ -68,74 +68,104 @@ $(function () {
         },
         //列表表头字段
         columns: [
+            //订单号
             {"data": "id", "orderable": false},
-            {"data": "name", "orderable": false},
-            {"data": "flow", "orderable": false},
-            {"data": "type", "orderable": false},
-            {"data": "price", "orderable": false},
+            //产品ID
+            {"data": "productName", "orderable": false},
+            //订单时间
+            {"data": "createdTime", "orderable": false},
+            //收件地址
+            {"data": "transAddress", "orderable": false},
+            //油费
+            {
+                "data":
+                    function (obj) {
+                        return feeFormat(obj.transFee);
+                    }
+            },
+            //支付金额
             {
                 "data": function (obj) {
-                    return '<div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">'
-                        + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:showBuyWindow(\'' + obj.id + '\',\'' + obj.name + '\',\'' + obj.price + '\');">' +
-                        '<span class="am-icon-pencil-square-o">立刻购卡</span></a>' + '</div></div>';
+                    return feeFormat(obj.total);
+                }
+            },
+            //订单状态
+            {
+                "data": function (obj) {
+                    return orderStatusFormat(obj.status);
+                }
+            },
+            //处理状态
+            {"data": "transStatus", "orderable": false},
+            //备注
+            {"data": "memo", "orderable": false},
+            {
+                "data": function (obj) {
+                    if (obj.status == 20) {
+                        return '<div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">'
+                            + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:showBuyWindow(\''
+                            + obj.id + '\',\'' + obj.transAddress
+                            + '\',\'' + obj.transPhone
+                            + '\',\'' + obj.transPerson
+                            + '\',\'' + obj.transNum
+                            + '\',\'' + obj.transStatus + '\');">' +
+                            '<span class="am-icon-pencil-square-o">发货</span></a>' + '</div></div>';
+                    } else {
+                        return '';
+                    }
                 },
                 "className": "center"
             }
         ]
     }).api();
+
+    function feeFormat(fee) {
+        return fee + "元";
+    }
 });
 
 
-function showBuyWindow(id, name, price) {
+function showBuyWindow(id, transAddress, transPhone, transPerson, num, status) {
     //填值
-    $('#productName').val(name);
-    $('#price').val(price);
+    $('#transAddress').val(transAddress);
+    $('#transPhone').val(transPhone);
+    $('#transPerson').val(transPerson);
+    $('#transNum').val(num);
 
 
     //事件
-    $('#buy').modal({
+    $('#trans').modal({
         closeOnConfirm: false,
         onConfirm: function () {
-            var productName = $('#productName').val();
-            var productId = id;
-            var price = $('#price').val();
-            var num = $('#num').val();
-            var period = $('#period').val();
-            var transPerson = $('#transPerson').val();
-            var transPhone = $('#transPhone').val();
-            var transAddress = $('#transAddress').val();
-            var memo = $('#memo').val();
+            var transNum = $('#transNum').val();
 
-            if ($('#buyForm').validator('isFormValid')) {
+            if ($('#transForm').validator('isFormValid')) {
                 // 請求後台
                 var req = {};
-                req.productId = productId;
-                req.productName = productName;
-                req.price = price;
-                req.num = num;
-                req.period = period;
-                req.transPerson = transPerson;
-                req.transPhone = transPhone;
+                req.orderId = id;
+                req.transNum = transNum;
                 req.transAddress = transAddress;
-                req.memo = memo;
-                req.buyer = userId;
-                req.transType = $('#transType option:selected').val();
+                req.transPhone = transPhone;
+                req.transPerson = transPerson;
+                req.transStatus = status;
                 $.ajax({
                     //几个参数需要注意一下
                     type: "post",//方法类型
                     contentType: "application/json; charset=UTF-8",
                     dataType: "json",//预期服务器返回的数据类型
-                    url: "/order/generate",//url
+                    url: "/order/trans/edit",//url
                     data: JSON.stringify(req),
                     success: function (result) {
                         console.log(result);//打印服务端返回的数据(调试用)
                         if (result.code == "0000") {
                             //alert(result.code)
-                            alert("下单成功");
+                            alert("确认成功");
                             // 验证成功的逻辑
-                            $('#buy').modal('close');
+                            $('#trans').modal('close');
+                            //$('#orderTable').DataTable().ajax.reload();
+                            window.location.reload();
                         } else {
-                            alert("下单失败");
+                            alert("失败");
                         }
                     },
                     error: function () {

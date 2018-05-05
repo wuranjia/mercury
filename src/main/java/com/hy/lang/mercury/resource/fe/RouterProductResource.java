@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class RouterProductResource extends AbstractResourceMenu {
+
     private final MenuAble menuService;
 
     public RouterProductResource(MenuAble menuService) {

@@ -1,5 +1,11 @@
 package com.hy.lang.mercury.pojo;
 
+import com.hy.lang.mercury.common.Constants;
+import com.hy.lang.mercury.pojo.enums.OrderStatus;
+import com.hy.lang.mercury.pojo.enums.TransStatus;
+import com.hy.lang.mercury.pojo.enums.TransType;
+import com.hy.lang.mercury.resource.req.OrderReq;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -9,6 +15,8 @@ public class Order {
     private String name;
 
     private Long productId;
+
+    private String productName;
 
     private Long num;
 
@@ -25,6 +33,10 @@ public class Order {
     private Long status;
 
     private String transNum;
+
+    private String transPerson;
+
+    private String transPhone;
 
     private String transStatus;
 
@@ -43,6 +55,49 @@ public class Order {
     private Date updatedTime;
 
     private String updatedBy;
+
+    public Order(){}
+
+    public Order(OrderReq req) {
+        this.name = req.getProductName();
+        this.productId = req.getProductId();
+        this.num = req.getNum();
+        this.timeLong = req.getPeriod();
+        this.price = req.getPrice();
+        this.num = req.getNum();
+        this.total = this.price.multiply(new BigDecimal(this.num));
+        this.buyer = Long.valueOf(req.getBuyer());
+        this.seller = Constants.SELLER;
+        this.transNum = Constants.NVL;
+        this.transAddress = req.getTransAddress();
+        this.transPhone = req.getTransPhone();
+        this.transPerson = req.getTransPerson();
+        this.transStatus = TransStatus.代发货.name();
+        this.memo = req.getMemo();
+        if (TransType.普通.name().equals(req.getTransType())) {
+            this.transFee = new BigDecimal(TransType.普通.getFee());
+        } else if (TransType.到付.name().equals(req.getTransType())) {
+            this.transFee = new BigDecimal(TransType.到付.getFee());
+        } else if (TransType.顺丰.name().equals(req.getTransType())) {
+            this.transFee = new BigDecimal(TransType.顺丰.getFee());
+        } else {
+            this.transFee = BigDecimal.ZERO;
+        }
+        this.status = (Long.valueOf(OrderStatus.已下单.getCode()));
+        this.opUserName = req.getBuyer();
+        this.createdBy = Constants.SYS;
+        this.updatedBy = Constants.SYS;
+        this.createdTime = new Date();
+        this.updatedTime = new Date();
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
     public Long getId() {
         return id;
@@ -130,6 +185,22 @@ public class Order {
 
     public void setTransNum(String transNum) {
         this.transNum = transNum == null ? null : transNum.trim();
+    }
+
+    public String getTransPerson() {
+        return transPerson;
+    }
+
+    public void setTransPerson(String transPerson) {
+        this.transPerson = transPerson == null ? null : transPerson.trim();
+    }
+
+    public String getTransPhone() {
+        return transPhone;
+    }
+
+    public void setTransPhone(String transPhone) {
+        this.transPhone = transPhone == null ? null : transPhone.trim();
     }
 
     public String getTransStatus() {
