@@ -399,6 +399,7 @@
 
 
 
+
         ]]>
     </select>
 
@@ -541,4 +542,7 @@
         </foreach>
     </update>
 
+    <delete id="deleteBySimId" parameterType="java.lang.Long">
+        delete from t_m_sim_base where sim_id = #{simId};
+    </delete>
 </mapper>

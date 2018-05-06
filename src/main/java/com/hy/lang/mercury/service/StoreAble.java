@@ -25,4 +25,6 @@ public interface StoreAble {
     String export(StoreReq req);
 
     void insertDetail(String path,String storeId);
+
+    void sync(StoreReq req);
 }

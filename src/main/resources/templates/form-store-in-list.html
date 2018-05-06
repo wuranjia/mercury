@@ -92,43 +92,7 @@
             </div>
             <div class="portlet-title">
                 <div class="tpl-block">
-                    <!-- <div class="am-g">
-                         <div class="am-u-sm-12">
-                             <form id="queryForm" class="am-form">
-                                 <div class="am-g am-margin-top  am-form-group am-form-group-sm">
-                                     <div class="am-u-sm-3 am-u-md-2 am-text-left am-text-xs">
-                                         登录名:
-                                     </div>
-                                     <div class="am-u-sm-9 am-u-md-10 am-text-left">
-                                         <input class="am-form-field am-input-xs" type="text" id="userName"
-                                                placeholder="登录名">
-                                     </div>
-                                 </div>
-                                 <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                                     <div class="am-u-sm-3 am-u-md-2 am-text-left  am-text-xs">
-                                         手机号:
-                                     </div>
-                                     <div class="am-u-sm-9 am-u-md-10 am-text-left">
-                                         <input class="am-form-field am-input-xs" type="text" id="phone"
-                                                placeholder="手机号">
-                                     </div>
-                                 </div>
-                                 <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                                     <div class="am-u-sm-3 am-u-md-2 am-text-left  am-text-xs">
-                                         公司名称:
-                                     </div>
-                                     <div class="am-u-sm-9 am-u-md-10 am-text-left">
-                                         <input class="am-form-field am-input-xs" type="text" id="company"
-                                                placeholder="公司名称">
-                                     </div>
-                                 </div>
-                                 <div class="am-margin">
-                                     <a class="am-btn am-btn-primary am-btn-xs" href="javascript:query();">查询</a>
-                                     <a class="am-btn am-btn-primary am-btn-xs" href="javascript:add();">新增</a>
-                                 </div>
-                             </form>
-                         </div>
-                     </div>-->
+
 
                     <div class="am-g">
                         <div class="am-u-sm-12">
@@ -138,13 +102,13 @@
                                     <thead>
                                     <tr>
                                         <th>订单号</th>
+                                        <th>出库单号</th>
                                         <th>产品名称</th>
-                                        <th>订单时间</th>
-                                        <th>收件地址</th>
-                                        <th>邮费</th>
-                                        <th>支付金额</th>
-                                        <th>订单状态</th>
-                                        <th>物流状态</th>
+                                        <th>出库时间</th>
+                                        <th>快递单号</th>
+                                        <th>付款金额</th>
+                                        <th>续费单价</th>
+                                        <th>数量</th>
                                         <th>备注</th>
                                         <th>操作</th>
                                     </tr>
@@ -166,48 +130,45 @@
 <script src="../../static/assets/biz/common.js"></script>
 <script src="../../static/assets/js/amazeui.min.js"></script>
 <script src="../../static/assets/js/app.js"></script><!-- 全屏按鈕+菜單 -->
-<script src="../../static/assets/biz/form-order-buy-list.js"></script>
+<script src="../../static/assets/biz/form-store-in-list.js"></script>
 
 
-<!--模态框-->
-<div class="am-modal am-modal-alert" tabindex="10000" id="trans">
+<div class="am-modal am-modal-alert" tabindex="10000" id="cardDetail">
     <div class="am-modal-dialog">
-        <div class="am-modal-hd">支付确认</div>
+        <div class="am-modal-hd">卡片详情</div>
         <div class="am-modal-bd">
             <!--模态框内容-->
             <div class="am-u-sm-12">
-                <form id="transForm" class="am-form" data-am-validator>
-                    <fieldset>
-                        <div class="am-g am-margin-top  am-form-group am-form-group-sm">
-                            <div class="am-u-sm-3 am-u-md-3 am-text-left am-text-xs">
-                                产品:
-                            </div>
-                            <div class="am-u-sm-9 am-u-md-9 am-text-left">
-                                <input class="am-form-field am-input-xs" disabled="disabled" type="text"
-                                       id="productName">
-                            </div>
-                        </div>
-                        <div class="am-g am-margin-top  am-form-group am-form-group-xs">
-                            <div class="am-u-sm-3 am-u-md-3 am-text-left  am-text-xs">
-                                总价(元):
-                            </div>
-                            <div class="am-u-sm-9 am-u-md-9 am-text-left">
-                                <input class="am-form-field am-input-xs" type="text" id="total"
-                                       disabled="disabled">
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
+                <div class="am-g">
+                    <div class="am-u-sm-12">
+                        <form class="am-form">
+                            <table id="cardTable"
+                                   class="am-table am-table-striped am-table-hover table-main am-table-compact">
+                                <thead>
+                                <tr>
+                                    <th>订单编号</th>
+                                    <th>出库编号</th>
+                                    <th>sim</th>
+                                    <th>iccid</th>
+                                    <th>imsi</th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <hr/>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="am-modal-footer">
             <!--关键是在这里为两个按钮加上data-am-modal-confirm与data-am-modal-cancel属性-->
-            <span class="am-modal-btn" data-am-modal-confirm>确认</span>
+            <!--
+                        <span class="am-modal-btn" data-am-modal-confirm>上传</span>
+            -->
             <span class="am-modal-btn" data-am-modal-cancel>关闭</span>
         </div>
     </div>
 </div>
-
 
 </body>
 

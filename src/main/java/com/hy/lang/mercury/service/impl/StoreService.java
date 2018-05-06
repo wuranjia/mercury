@@ -3,9 +3,9 @@ package com.hy.lang.mercury.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.hy.lang.mercury.common.Constants;
 import com.hy.lang.mercury.common.entity.PageList;
-import com.hy.lang.mercury.dao.OrderMapper;
-import com.hy.lang.mercury.dao.StoreDetailMapper;
-import com.hy.lang.mercury.dao.StoreMapper;
+import com.hy.lang.mercury.dao.*;
+import com.hy.lang.mercury.pojo.Product;
+import com.hy.lang.mercury.pojo.SimBase;
 import com.hy.lang.mercury.pojo.Store;
 import com.hy.lang.mercury.pojo.StoreDetail;
 import com.hy.lang.mercury.pojo.enums.TransStatus;
@@ -35,6 +35,12 @@ public class StoreService implements StoreAble {
 
     @Autowired
     private OrderMapper orderMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
+
+    @Autowired
+    private SimBaseMapper simBaseMapper;
 
     @Override
     public PageList<Store> inList(StoreReq req) {
@@ -102,6 +108,26 @@ public class StoreService implements StoreAble {
         Store store = storeMapper.selectByPrimaryKey(Long.valueOf(storeId));
         Long orderId = store.getOrderId();
         readFromFile(path, store.getId(), orderId);
+    }
+
+    //同步到my-sim-card中
+    @Override
+    public void sync(StoreReq req) {
+        Long storeId = req.getStoreId();
+        Store store = storeMapper.selectByPrimaryKey(storeId);
+//        Order order = orderMapper.selectByPrimaryKey(store.getOrderId());
+        Product product = productMapper.selectByPrimaryKey(store.getProductId());
+        List<StoreDetail> list = storeDetailMapper.selectByStoreId(storeId);
+        List<SimBase> inserts = new ArrayList<SimBase>();
+        for (StoreDetail detail : list) {
+            SimBase simBase = new SimBase(Long.valueOf(detail.getSimId()),
+                    detail.getIccid(), detail.getImsi(),
+                    Constants.中国移动, product.getName(), req.getBuyer()
+            );
+            simBaseMapper.deleteBySimId(Long.valueOf(detail.getSimId()));
+            inserts.add(simBase);
+        }
+        simBaseMapper.batchInsert(inserts);
     }
 
     /**

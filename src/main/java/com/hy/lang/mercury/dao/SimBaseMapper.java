@@ -41,4 +41,6 @@ public interface SimBaseMapper {
     int updateCal(Map map);
 
     int assign(@Param("simIds") String[] cards,@Param("supplier") String userId );
+
+    void deleteBySimId(Long simId);
 }

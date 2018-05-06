@@ -72,6 +72,18 @@ public class StoreResource extends BaseResource {
         }
     }
 
+    @RequestMapping(path = "/sync", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String sync(
+            @RequestBody StoreReq req) {
+        try {
+            storeService.sync(req);
+            return JSON.toJSONString(ResponseEntity.createBySuccess());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JSON.toJSONString(ResponseEntity.createByError());
+        }
+    }
+
     public String export(@RequestBody StoreReq req) {
         try {
             String url = storeService.export(req);
