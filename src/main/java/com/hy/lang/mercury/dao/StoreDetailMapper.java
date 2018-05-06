@@ -25,4 +25,6 @@ public interface StoreDetailMapper {
     List<StoreDetail> selectByStoreId(Long storeId);
 
     void deleteByStoreId(Long storeId);
+
+    void batchInsert(List<StoreDetail> inserts);
 }

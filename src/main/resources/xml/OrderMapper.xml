@@ -359,6 +359,7 @@
         update t_m_order set
       trans_num = #{transNum,jdbcType=VARCHAR},
       trans_status = #{transStatus,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIGINT},
       trans_address = #{transAddress,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
     </update>

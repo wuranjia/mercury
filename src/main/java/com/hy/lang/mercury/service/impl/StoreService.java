@@ -1,5 +1,6 @@
 package com.hy.lang.mercury.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.hy.lang.mercury.common.Constants;
 import com.hy.lang.mercury.common.entity.PageList;
 import com.hy.lang.mercury.dao.OrderMapper;
@@ -13,6 +14,10 @@ import com.hy.lang.mercury.service.StoreAble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +38,7 @@ public class StoreService implements StoreAble {
 
     @Override
     public PageList<Store> inList(StoreReq req) {
+        System.out.println(JSON.toJSONString(req));
         int total = storeMapper.countByParams(req);
         List<Store> list = storeMapper.selectByParams(req);
         PageList<Store> pageList = new PageList<Store>();
@@ -50,9 +56,16 @@ public class StoreService implements StoreAble {
     }
 
     @Override
-    public List<StoreDetail> detailList(StoreReq req) {
+    public PageList<StoreDetail> detailList(StoreReq req) {
         List<StoreDetail> details = storeDetailMapper.selectByStoreId(req.getStoreId());
-        return details;
+        PageList<StoreDetail> result = new PageList<StoreDetail>();
+        result.setItems(details);
+        result.setDraw(req.getDraw());
+        result.setTotal(details.size());
+        result.setCurrent(1);
+        result.setPageSize(details.size());
+        result.setPageTotal(1L);
+        return result;
     }
 
     @Override
@@ -80,5 +93,56 @@ public class StoreService implements StoreAble {
     @Override
     public String export(StoreReq req) {
         return null;
+    }
+
+    @Override
+    public void insertDetail(String path, String storeId) {
+        //先清理数据
+        storeDetailMapper.deleteByStoreId(Long.valueOf(storeId));
+        Store store = storeMapper.selectByPrimaryKey(Long.valueOf(storeId));
+        Long orderId = store.getOrderId();
+        readFromFile(path, store.getId(), orderId);
+    }
+
+    /**
+     * 文件格式
+     * sim+iccid+imsi
+     *
+     * @param path
+     * @param storeId
+     * @param orderId
+     * @return
+     */
+    public void readFromFile(String path, Long storeId, Long orderId) {
+        File file = new File(path);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));//换成你的文件名
+            reader.readLine();//第一行信息，为标题信息，不用,如果需要，注释掉
+            String line = null;
+            List<StoreDetail> inserts = new ArrayList<StoreDetail>();
+            int i = 0;
+            while ((line = reader.readLine()) != null) {
+                i++;
+                String item[] = line.split(",");//CSV格式文件为逗号分隔符文件，这里根据逗号切分
+                String simStr = item[0];
+                Long sim = Long.valueOf(simStr);
+                String iccid = item[1];
+                String imsi = item[2];
+                StoreDetail detail = new StoreDetail(sim, iccid, imsi, orderId, storeId);
+                //int value = Integer.parseInt(last);//如果是数值，可以转化为数值
+
+                inserts.add(detail);
+                if (inserts.size() >= 1000) {
+                    storeDetailMapper.batchInsert(inserts);
+                    inserts.clear();
+                }
+            }
+            if (inserts.size() != 0) {
+                storeDetailMapper.batchInsert(inserts);
+            }
+            System.out.println("insert orderId = " + orderId + " total records = " + i);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

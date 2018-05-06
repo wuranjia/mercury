@@ -3,6 +3,7 @@ package com.hy.lang.mercury.dao;
 import com.hy.lang.mercury.pojo.Store;
 import com.hy.lang.mercury.resource.req.StoreReq;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,5 +28,5 @@ public interface StoreMapper {
 
     List<Store> selectByParams(StoreReq req);
 
-    Store selectByOrderId(Long orderId);
+    Store selectByOrderId(@Param("orderId") Long orderId,@Param("storeType") String storeType);
 }

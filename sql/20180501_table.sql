@@ -69,12 +69,11 @@ CREATE TABLE `t_m_store` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 库存详细
 CREATE TABLE `t_m_store_detail` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `store_id` varchar(64) NOT NULL DEFAULT '-1' COMMENT '库存ID',
-  `order_id` decimal(9,4) NOT NULL DEFAULT -1 COMMENT '订单Id',
-  `sim_id` bigint(20) NOT NULL DEFAULT -1 COMMENT 'sim',
+  `store_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '库存ID',
+  `order_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '订单Id',
+  `sim_id` varchar(32) NOT NULL DEFAULT '-1' COMMENT 'sim',
   `iccid` varchar(48) NOT NULL DEFAULT '-1' COMMENT 'iccid',
   `imsi` varchar(48) NOT NULL DEFAULT '-1' COMMENT 'imsi',
   `memo` varchar(512) NOT NULL DEFAULT '-1' COMMENT '备注',
@@ -83,4 +82,4 @@ CREATE TABLE `t_m_store_detail` (
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   `updated_by` varchar(64) NOT NULL DEFAULT '-1' COMMENT '修改人',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

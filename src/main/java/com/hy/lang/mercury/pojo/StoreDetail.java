@@ -1,16 +1,17 @@
 package com.hy.lang.mercury.pojo;
 
-import java.math.BigDecimal;
+import com.hy.lang.mercury.common.Constants;
+
 import java.util.Date;
 
-public class StoreDetail {
+public class StoreDetail implements Cloneable{
     private Long id;
 
-    private String storeId;
+    private Long storeId;
 
-    private BigDecimal orderId;
+    private Long orderId;
 
-    private Long simId;
+    private String simId;
 
     private String iccid;
 
@@ -26,6 +27,21 @@ public class StoreDetail {
 
     private String updatedBy;
 
+    public StoreDetail() {
+    }
+
+    public StoreDetail(Long sim, String iccid, String imsi, Long orderId, Long storeId) {
+        this.storeId = storeId;
+        this.orderId = orderId;
+        this.simId = sim+"";
+        this.iccid = iccid;
+        this.imsi = imsi;
+        this.createdBy = Constants.SYS;
+        this.updatedBy = Constants.SYS;
+        this.createdTime = new Date();
+        this.updatedTime = new Date();
+        this.memo = Constants.NVL;    }
+
     public Long getId() {
         return id;
     }
@@ -34,27 +50,27 @@ public class StoreDetail {
         this.id = id;
     }
 
-    public String getStoreId() {
+    public Long getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(String storeId) {
-        this.storeId = storeId == null ? null : storeId.trim();
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
-    public BigDecimal getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(BigDecimal orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
-    public Long getSimId() {
+    public String getSimId() {
         return simId;
     }
 
-    public void setSimId(Long simId) {
+    public void setSimId(String simId) {
         this.simId = simId;
     }
 
@@ -63,7 +79,7 @@ public class StoreDetail {
     }
 
     public void setIccid(String iccid) {
-        this.iccid = iccid == null ? null : iccid.trim();
+        this.iccid = iccid;
     }
 
     public String getImsi() {
@@ -71,7 +87,7 @@ public class StoreDetail {
     }
 
     public void setImsi(String imsi) {
-        this.imsi = imsi == null ? null : imsi.trim();
+        this.imsi = imsi;
     }
 
     public String getMemo() {
@@ -79,7 +95,7 @@ public class StoreDetail {
     }
 
     public void setMemo(String memo) {
-        this.memo = memo == null ? null : memo.trim();
+        this.memo = memo;
     }
 
     public Date getCreatedTime() {
@@ -95,7 +111,7 @@ public class StoreDetail {
     }
 
     public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy == null ? null : createdBy.trim();
+        this.createdBy = createdBy;
     }
 
     public Date getUpdatedTime() {
@@ -111,6 +127,17 @@ public class StoreDetail {
     }
 
     public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy == null ? null : updatedBy.trim();
+        this.updatedBy = updatedBy;
+    }
+
+    @Override
+    public StoreDetail clone() {
+        StoreDetail sc = null;
+        try {
+            sc = (StoreDetail) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return sc;
     }
 }

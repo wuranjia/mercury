@@ -78,3 +78,12 @@ update t_m_menu set menu_url = '#',menu_name = '我的账户' where menu_id = 5;
 INSERT INTO `mercury`.`t_m_menu` ( `parent_id`, `menu_name`, `menu_url`, `valid`, `memo`, `created_time`, `created_by`, `updated_time`, `updated_by`) VALUES ( '5', '购买列表', '/fe/order/buy_list', '1', '-1', '2018-03-31 19:26:22', '-1', '2018-03-31 19:26:22', '-1');
 
 INSERT INTO `mercury`.`t_m_menu` ( `parent_id`, `menu_name`, `menu_url`, `valid`, `memo`, `created_time`, `created_by`, `updated_time`, `updated_by`) VALUES ( '5', '销售列表', '/fe/order/sell_list', '1', '-1', '2018-03-31 19:26:22', '-1', '2018-03-31 19:26:22', '-1');
+
+update t_m_menu set menu_url = '#' where menu_id = 2;
+
+INSERT INTO `mercury`.`t_m_menu` ( `parent_id`, `menu_name`, `menu_url`, `valid`, `memo`, `created_time`, `created_by`, `updated_time`, `updated_by`) VALUES ( '2', '客户管理', '/fe/user/list', '1', '-1', '2018-03-31 19:26:22', '-1', '2018-03-31 19:26:22', '-1');
+
+
+
+INSERT INTO `mercury`.`t_m_menu` ( `parent_id`, `menu_name`, `menu_url`, `valid`, `memo`, `created_time`, `created_by`, `updated_time`, `updated_by`) VALUES ( '3', '入库清单', '/fe/store/in_list', '1', '-1', '2018-03-31 19:26:22', '-1', '2018-03-31 19:26:22', '-1');
+INSERT INTO `mercury`.`t_m_menu` ( `parent_id`, `menu_name`, `menu_url`, `valid`, `memo`, `created_time`, `created_by`, `updated_time`, `updated_by`) VALUES ( '3', '出库清单', '/fe/store/out_list', '1', '-1', '2018-03-31 19:26:22', '-1', '2018-03-31 19:26:22', '-1');

@@ -258,18 +258,19 @@
             and seller = #{seller,jdbcType=BIGINT}
         </if>
         <if test="storeType != null">
-            and store_type != #{storeType,jdbcType=BIGINT}
+            and store_type = #{storeType,jdbcType=VARCHAR}
         </if>
         order by id DESC
         limit #{start},#{limit}
     </select>
 
-    <select id="selectByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectByOrderId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from t_m_store
         where 1=1
        and order_id = #{orderId,jdbcType=BIGINT}
+        and store_type = #{storeType,jdbcType=VARCHAR}
     </select>
 
     <select id="countByParams" parameterType="com.hy.lang.mercury.resource.req.StoreReq"
@@ -285,7 +286,7 @@
             and seller = #{seller,jdbcType=BIGINT}
         </if>
         <if test="storeType != null">
-            and store_type != #{storeType,jdbcType=BIGINT}
+            and store_type = #{storeType,jdbcType=VARCHAR}
         </if>
 
     </select>

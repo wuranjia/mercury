@@ -28,4 +28,6 @@ public interface OrderAble {
     Order transInfo(TransReq req);
 
     int payConfirm(OrderReq req);
+
+    int transConfirm(OrderReq req);
 }

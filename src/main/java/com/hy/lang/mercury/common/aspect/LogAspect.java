@@ -16,7 +16,7 @@ public class LogAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
-    @Pointcut("execution(* com.hy.lang.mercury.service..*.*(..))")
+    @Pointcut("execution(* com.hy.lang.mercury..*.*(..))")
     public void serviceAspect() {
 
     }

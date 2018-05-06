@@ -15,7 +15,7 @@ public interface StoreAble {
     PageList<Store> outList(StoreReq req);
 
     //导入卡详情信息，关联订单
-    List<StoreDetail>  detailList(StoreReq req);
+    PageList<StoreDetail>  detailList(StoreReq req);
 
     int generate(Store store);
 
@@ -23,4 +23,6 @@ public interface StoreAble {
     int delete(StoreReq req);
 
     String export(StoreReq req);
+
+    void insertDetail(String path,String storeId);
 }

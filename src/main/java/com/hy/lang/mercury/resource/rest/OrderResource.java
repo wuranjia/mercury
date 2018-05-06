@@ -77,6 +77,19 @@ public class OrderResource extends BaseResource {
         }
     }
 
+    @RequestMapping(path = "/trans/confirm", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String transConfirm(
+            @RequestBody OrderReq req
+    ) {
+        try {
+            orderService.transConfirm(req);
+            return JSON.toJSONString(ResponseEntity.createBySuccess());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JSON.toJSONString(ResponseEntity.createByError());
+        }
+    }
+
     @RequestMapping(path = "/trans/edit", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String transEdit(
             @RequestBody TransReq req) {

@@ -40,12 +40,12 @@ $(function () {
             param.start = data.start;//开始的记录序号
             param.page = (data.start / data.length) + 1;//当前页码
             param.draw = data.draw;
-            param.buyer = userId;
+            param.seller = userId;
 
             //ajax请求数据
             $.ajax({
                 type: "POST",
-                url: "/order/buy/list",
+                url: "/order/sell/list",
                 contentType: "application/json; charset=UTF-8",
                 cache: false, //禁用缓存
                 data: JSON.stringify(param), //传入组装的参数
@@ -101,16 +101,16 @@ $(function () {
             {"data": "memo", "orderable": false},
             {
                 "data": function (obj) {
-                    if (obj.status == 10) {
+                    if (obj.status == 20) {
                         return '<div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">'
-                            + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:showBuyWindow(\'' + obj.id + '\',\'' + obj.productName + '\',\'' + obj.total + '\',\'' + obj.status + '\');">' +
-                            '<span class="am-icon-pencil-square-o">确认支付</span></a>' + '</div></div>';
-                    } else if (obj.status == 30) {
-                        return '<div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">'
-                            + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:confirmTrans(\'' + obj.id + '\',\'' + obj.productName + '\',\'' + obj.total + '\',\'' + obj.status + '\');">' +
-                            '<span class="am-icon-pencil-square-o">确认收货</span></a>' + '</div></div>';
-                    }
-                    else {
+                            + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:showBuyWindow(\''
+                            + obj.id + '\',\'' + obj.transAddress
+                            + '\',\'' + obj.transPhone
+                            + '\',\'' + obj.transPerson
+                            + '\',\'' + obj.transNum
+                            + '\',\'' + obj.transStatus + '\');">' +
+                            '<span class="am-icon-pencil-square-o">发货</span></a>' + '</div></div>';
+                    } else {
                         return '';
                     }
                 },
@@ -125,33 +125,35 @@ $(function () {
 });
 
 
-function showBuyWindow(id, name, price, status) {
+function showBuyWindow(id, transAddress, transPhone, transPerson, num, status) {
     //填值
-    $('#productName').val(name);
-    $('#total').val(price);
+    $('#transAddress').val(transAddress);
+    $('#transPhone').val(transPhone);
+    $('#transPerson').val(transPerson);
+    $('#transNum').val(num);
 
 
     //事件
     $('#trans').modal({
         closeOnConfirm: false,
         onConfirm: function () {
-            var productName = $('#productName').val();
-            var orderId = id;
-            var total = $('#total').val();
+            var transNum = $('#transNum').val();
 
             if ($('#transForm').validator('isFormValid')) {
                 // 請求後台
                 var req = {};
-                req.orderId = orderId;
-                req.productName = productName;
-                req.total = total;
-                req.status = status;
+                req.orderId = id;
+                req.transNum = transNum;
+                req.transAddress = transAddress;
+                req.transPhone = transPhone;
+                req.transPerson = transPerson;
+                req.transStatus = status;
                 $.ajax({
                     //几个参数需要注意一下
                     type: "post",//方法类型
                     contentType: "application/json; charset=UTF-8",
                     dataType: "json",//预期服务器返回的数据类型
-                    url: "/order/pay/confirm",//url
+                    url: "/order/trans/edit",//url
                     data: JSON.stringify(req),
                     success: function (result) {
                         console.log(result);//打印服务端返回的数据(调试用)
@@ -160,6 +162,7 @@ function showBuyWindow(id, name, price, status) {
                             alert("确认成功");
                             // 验证成功的逻辑
                             $('#trans').modal('close');
+                            //$('#orderTable').DataTable().ajax.reload();
                             window.location.reload();
                         } else {
                             alert("失败");
@@ -173,51 +176,6 @@ function showBuyWindow(id, name, price, status) {
 
 
             }
-        },
-        onCancel: function () {
-        }
-    });
-}
-
-function confirmTrans(id, name, price, status) {
-    //填值
-
-    //事件
-    $('#confirmTrans').modal({
-        closeOnConfirm: false,
-        onConfirm: function () {
-            var orderId = id;
-
-            // 請求後台
-            var req = {};
-            req.orderId = orderId;
-            req.status = status;
-            $.ajax({
-                //几个参数需要注意一下
-                type: "post",//方法类型
-                contentType: "application/json; charset=UTF-8",
-                dataType: "json",//预期服务器返回的数据类型
-                url: "/order/trans/confirm",//url
-                data: JSON.stringify(req),
-                success: function (result) {
-                    console.log(result);//打印服务端返回的数据(调试用)
-                    if (result.code == "0000") {
-                        //alert(result.code)
-                        alert("确认成功");
-                        // 验证成功的逻辑
-                        $('#trans').modal('close');
-                        window.location.reload();
-                    } else {
-                        alert("失败");
-                    }
-                },
-                error: function () {
-                    //alert("用户名或密码不正确！");
-                    //window.location.href = "/";
-                }
-            });
-
-
         },
         onCancel: function () {
         }

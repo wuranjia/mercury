@@ -1,157 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hy.lang.mercury.dao.StoreDetailMapper">
-  <resultMap id="BaseResultMap" type="com.hy.lang.mercury.pojo.StoreDetail">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="store_id" jdbcType="VARCHAR" property="storeId" />
-    <result column="order_id" jdbcType="DECIMAL" property="orderId" />
-    <result column="sim_id" jdbcType="BIGINT" property="simId" />
-    <result column="iccid" jdbcType="VARCHAR" property="iccid" />
-    <result column="imsi" jdbcType="VARCHAR" property="imsi" />
-    <result column="memo" jdbcType="VARCHAR" property="memo" />
-    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
-    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
-    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
-    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.hy.lang.mercury.pojo.StoreDetail">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="store_id" jdbcType="BIGINT" property="storeId"/>
+        <result column="order_id" jdbcType="BIGINT" property="orderId"/>
+        <result column="sim_id" jdbcType="VARCHAR" property="simId"/>
+        <result column="iccid" jdbcType="VARCHAR" property="iccid"/>
+        <result column="imsi" jdbcType="VARCHAR" property="imsi"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="updated_by" jdbcType="VARCHAR" property="updatedBy"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, store_id, order_id, sim_id, iccid, imsi, memo, created_time, created_by, updated_time, 
     updated_by
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_m_store_detail
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_store_detail
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_m_store_detail
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.hy.lang.mercury.pojo.StoreDetail">
+    <insert id="insert" parameterType="com.hy.lang.mercury.pojo.StoreDetail">
     insert into t_m_store_detail (id, store_id, order_id, 
       sim_id, iccid, imsi, 
       memo, created_time, created_by, 
       updated_time, updated_by)
-    values (#{id,jdbcType=BIGINT}, #{storeId,jdbcType=VARCHAR}, #{orderId,jdbcType=DECIMAL}, 
-      #{simId,jdbcType=BIGINT}, #{iccid,jdbcType=VARCHAR}, #{imsi,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{storeId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT},
+      #{simId,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, #{imsi,jdbcType=VARCHAR},
       #{memo,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, 
       #{updatedTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hy.lang.mercury.pojo.StoreDetail">
-    insert into t_m_store_detail
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="storeId != null">
-        store_id,
-      </if>
-      <if test="orderId != null">
-        order_id,
-      </if>
-      <if test="simId != null">
-        sim_id,
-      </if>
-      <if test="iccid != null">
-        iccid,
-      </if>
-      <if test="imsi != null">
-        imsi,
-      </if>
-      <if test="memo != null">
-        memo,
-      </if>
-      <if test="createdTime != null">
-        created_time,
-      </if>
-      <if test="createdBy != null">
-        created_by,
-      </if>
-      <if test="updatedTime != null">
-        updated_time,
-      </if>
-      <if test="updatedBy != null">
-        updated_by,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="storeId != null">
-        #{storeId,jdbcType=VARCHAR},
-      </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=DECIMAL},
-      </if>
-      <if test="simId != null">
-        #{simId,jdbcType=BIGINT},
-      </if>
-      <if test="iccid != null">
-        #{iccid,jdbcType=VARCHAR},
-      </if>
-      <if test="imsi != null">
-        #{imsi,jdbcType=VARCHAR},
-      </if>
-      <if test="memo != null">
-        #{memo,jdbcType=VARCHAR},
-      </if>
-      <if test="createdTime != null">
-        #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdBy != null">
-        #{createdBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updatedTime != null">
-        #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedBy != null">
-        #{updatedBy,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hy.lang.mercury.pojo.StoreDetail">
+    <insert id="insertSelective" parameterType="com.hy.lang.mercury.pojo.StoreDetail">
+        insert into t_m_store_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="storeId != null">
+                store_id,
+            </if>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="simId != null">
+                sim_id,
+            </if>
+            <if test="iccid != null">
+                iccid,
+            </if>
+            <if test="imsi != null">
+                imsi,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="updatedBy != null">
+                updated_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="storeId != null">
+                #{storeId,jdbcType=BIGINT},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=BIGINT},
+            </if>
+            <if test="simId != null">
+                #{simId,jdbcType=VARCHAR},
+            </if>
+            <if test="iccid != null">
+                #{iccid,jdbcType=VARCHAR},
+            </if>
+            <if test="imsi != null">
+                #{imsi,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                #{updatedBy,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hy.lang.mercury.pojo.StoreDetail">
+        update t_m_store_detail
+        <set>
+            <if test="storeId != null">
+                store_id = #{storeId,jdbcType=BIGINT},
+            </if>
+            <if test="orderId != null">
+                order_id = #{orderId,jdbcType=BIGINT},
+            </if>
+            <if test="simId != null">
+                sim_id = #{simId,jdbcType=VARCHAR},
+            </if>
+            <if test="iccid != null">
+                iccid = #{iccid,jdbcType=VARCHAR},
+            </if>
+            <if test="imsi != null">
+                imsi = #{imsi,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hy.lang.mercury.pojo.StoreDetail">
     update t_m_store_detail
-    <set>
-      <if test="storeId != null">
-        store_id = #{storeId,jdbcType=VARCHAR},
-      </if>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=DECIMAL},
-      </if>
-      <if test="simId != null">
-        sim_id = #{simId,jdbcType=BIGINT},
-      </if>
-      <if test="iccid != null">
-        iccid = #{iccid,jdbcType=VARCHAR},
-      </if>
-      <if test="imsi != null">
-        imsi = #{imsi,jdbcType=VARCHAR},
-      </if>
-      <if test="memo != null">
-        memo = #{memo,jdbcType=VARCHAR},
-      </if>
-      <if test="createdTime != null">
-        created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdBy != null">
-        created_by = #{createdBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updatedTime != null">
-        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedBy != null">
-        updated_by = #{updatedBy,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.hy.lang.mercury.pojo.StoreDetail">
-    update t_m_store_detail
-    set store_id = #{storeId,jdbcType=VARCHAR},
-      order_id = #{orderId,jdbcType=DECIMAL},
-      sim_id = #{simId,jdbcType=BIGINT},
+    set store_id = #{storeId,jdbcType=BIGINT},
+      order_id = #{orderId,jdbcType=BIGINT},
+      sim_id = #{simId,jdbcType=VARCHAR},
       iccid = #{iccid,jdbcType=VARCHAR},
       imsi = #{imsi,jdbcType=VARCHAR},
       memo = #{memo,jdbcType=VARCHAR},
@@ -161,4 +161,34 @@
       updated_by = #{updatedBy,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+    <insert id="batchInsert"
+            parameterType="List">
+
+        insert into t_m_store_detail (id, store_id, order_id,
+        sim_id, iccid, imsi,
+        memo, created_time, created_by,
+        updated_time, updated_by)
+        values
+        <foreach collection="list"
+                 item="item"
+                 index="index"
+                 separator=","
+        >
+            (#{item.id,jdbcType=BIGINT}, #{item.storeId,jdbcType=BIGINT}, #{item.orderId,jdbcType=BIGINT},
+            #{item.simId,jdbcType=VARCHAR}, #{item.iccid,jdbcType=VARCHAR}, #{item.imsi,jdbcType=VARCHAR},
+            #{item.memo,jdbcType=VARCHAR}, #{item.createdTime,jdbcType=TIMESTAMP}, #{item.createdBy,jdbcType=VARCHAR},
+            #{item.updatedTime,jdbcType=TIMESTAMP}, #{item.updatedBy,jdbcType=VARCHAR})
+        </foreach>
+
+    </insert>
+    <delete id="deleteByStoreId" parameterType="java.lang.Long">
+        delete from t_m_store_detail where store_id =  #{storeId,jdbcType=BIGINT}
+    </delete>
+
+    <select id="selectByStoreId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_m_store_detail where store_id = #{storeId,jdbcType=BIGINT}
+    </select>
 </mapper>

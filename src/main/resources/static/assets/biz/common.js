@@ -44,6 +44,33 @@ var lang = {
     }
 };
 
+//提示信息
+var lang2 = {
+    "sProcessing": "处理中...",
+    "sLengthMenu": "每页 _MENU_ 项",
+    "sZeroRecords": "没有匹配结果",
+    "sInfo": '<span class="  am-text-sm">共 _TOTAL_ 项</span>',
+    "sInfoEmpty": '<span class=" am-text-sm">共 0 项</span>',
+    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+    "sInfoPostFix": "",
+    "sSearch": "搜索:",
+    "sUrl": "",
+    "sEmptyTable": "表中数据为空",
+    "sLoadingRecords": "载入中...",
+    "sInfoThousands": ",",
+    "oPaginate": {
+        "sFirst": '<span class="  am-text-sm">首页</span>',
+        "sPrevious": '<span class="  am-text-sm">上页</span>',
+        "sNext": '<span class="  am-text-sm">下页</span>',
+        "sLast": '<span class="  am-text-sm">末页</span>',
+        "sJump": '<span class="  am-text-sm">跳转</span>'
+    },
+    "oAria": {
+        "sSortAscending": ": 以升序排列此列",
+        "sSortDescending": ": 以降序排列此列"
+    }
+};
+
 var validator = {
     // 是否使用 H5 原生表单验证，不支持浏览器会自动退化到 JS 验证
     H5validation: false,
@@ -212,4 +239,34 @@ function orderStatusFormat(obj) {
     } else if (obj == 90) {
         return "已取消";
     }
+}
+
+function timeFormatYYYYMMdd(str) {
+    var oDate = new Date(str),
+        oYear = oDate.getFullYear(),
+        oMonth = oDate.getMonth() + 1,
+        oDay = oDate.getDate(),
+        oTime = oYear + '-' + getZf(oMonth) + '-' + getZf(oDay);//最后拼接时间
+    return oTime;
+}
+
+//获得年月日      得到日期oTime
+function timeFormat(str) {
+    var oDate = new Date(str),
+        oYear = oDate.getFullYear(),
+        oMonth = oDate.getMonth() + 1,
+        oDay = oDate.getDate(),
+        oHour = oDate.getHours(),
+        oMin = oDate.getMinutes(),
+        oSen = oDate.getSeconds(),
+        oTime = oYear + '-' + getZf(oMonth) + '-' + getZf(oDay) + ' ' + getZf(oHour) + ':' + getZf(oMin) + ':' + getZf(oSen);//最后拼接时间
+    return oTime;
+};
+
+//补0操作
+function getZf(num) {
+    if (parseInt(num) < 10) {
+        num = '0' + num;
+    }
+    return num;
 }
