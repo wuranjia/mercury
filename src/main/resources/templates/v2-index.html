@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>物联网云平台</title>
+    <meta name="description" content="description">
+    <meta name="author" content="物联网云平台">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../static/assets/devoops/plugins/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="../static/assets/devoops/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+    <link href="../static/assets/devoops/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+    <link href="../static/assets/devoops/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+    <link href="../static/assets/devoops/plugins/xcharts/xcharts.min.css" rel="stylesheet">
+    <link href="../static/assets/devoops/plugins/select2/select2.css" rel="stylesheet">
+    <link href="../static/assets/devoops/css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
+    <script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<STYLE>
+    .right {
+        text-align: right !important
+    }
+</STYLE>
+<body>
+<!--Start Header-->
+<div id="screensaver">
+    <canvas id="canvas"></canvas>
+    <i class="fa fa-lock" id="screen_unlock"></i>
+</div>
+<div id="modalbox">
+    <div class="devoops-modal">
+        <div class="devoops-modal-header">
+            <div class="modal-header-name">
+                <span>Basic table</span>
+            </div>
+            <div class="box-icons">
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="devoops-modal-inner">
+        </div>
+        <div class="devoops-modal-bottom">
+        </div>
+    </div>
+</div>
+<header class="navbar">
+    <div class="container-fluid expanded-panel">
+        <div class="row">
+            <div id="logo" class="col-xs-12 col-sm-2">
+                <a href="index">物联网云平台</a>
+            </div>
+            <div id="top-panel" class="col-xs-12 col-sm-10">
+                <div class="row">
+                    <div class="col-xs-8 col-sm-4">
+                        <a href="#" class="show-sidebar">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div id="search">
+                            <input type="text" placeholder="search"/>
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-8 top-panel-right">
+                        <ul class="nav navbar-nav pull-right panel-menu">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+                                    <div class="avatar">
+                                        <img src="../static/assets/devoops/img/avatar.jpg" class="img-rounded"
+                                             alt="avatar"/>
+                                    </div>
+                                    <i class="fa fa-angle-down pull-right"></i>
+                                    <div class="user-mini pull-right">
+                                        <span class="welcome">Welcome,</span>
+                                        <span>Jane Devoops</span>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-power-off"></i>
+                                            <span class="hidden-sm text">Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--End Header-->
+<!--Start Container-->
+<div id="main" class="container-fluid">
+    <div class="row">
+        <div id="sidebar-left" class="col-xs-2 col-sm-2">
+            <ul th:each="item:${menuList}" class=" nav main-menu">
+                <li >
+                    <a th:href="${item.menuUrl}" href="#" class="dropdown-toggle">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <span class="hidden-xs" th:text="${item.menuName}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li th:each="child:${item.children}"><a class="ajax-link" th:href="${child.menuUrl}">
+                            <span th:text="${child.menuName}"></span>
+                        </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--Start Content-->
+        <div id=" content" class="col-xs-12 col-sm-10">
+            <div class="preloader">
+                <img src="../static/assets/devoops/img/devoops_getdata.gif" class="devoops-getdata"
+                     alt="preloader"/>
+            </div>
+            <div id="ajax-content"></div>
+        </div>
+        <!--End Content-->
+    </div>
+</div>
+<!--End Container-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="http://code.jquery.com/jquery.js"></script>-->
+<script src="../static/assets/devoops/plugins/jquery/jquery-2.1.0.min.js"></script>
+<script src="../static/assets/devoops/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="http://code.changer.hk/jquery/plugins/jquery.cookie.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/assets/devoops/plugins/bootstrap/bootstrap.min.js"></script>
+<script src="../static/assets/devoops/plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
+<script src="../static/assets/devoops/plugins/tinymce/tinymce.min.js"></script>
+<script src="../static/assets/devoops/plugins/tinymce/jquery.tinymce.min.js"></script>
+<!-- All functions for this theme + document.ready processing -->
+<script src="../static/assets/devoops/js/devoops.js"></script>
+<script src="../static/assets/biz/common.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+
+</body>
+</html>

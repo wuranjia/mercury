@@ -229,6 +229,29 @@ function cardDetail(id) {
 }
 
 function sync(id) {
+    var param = {};
+    param.storeId = id;
+    param.buyer = userId;
+    //ajax请求数据
+    $.ajax({
+        type: "POST",
+        url: "/store/sync",
+        contentType: "application/json; charset=UTF-8",
+        cache: false, //禁用缓存
+        data: JSON.stringify(param), //传入组装的参数
+        dataType: "json",
+        success: function (result) {
+            //封装返回数据
+            console.log(result);//打印服务端返回的数据(调试用)
+            if (result.code == "0000") {
+                //alert(result.code)
+                alert("同步成功");
+                // 验证成功的逻辑
+            } else {
+                alert("失败");
+            }
+        }
+    });
 
 }
 

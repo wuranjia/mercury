@@ -56,7 +56,8 @@ public class Order {
 
     private String updatedBy;
 
-    public Order(){}
+    public Order() {
+    }
 
     public Order(OrderReq req) {
         this.name = req.getProductName();
@@ -65,7 +66,6 @@ public class Order {
         this.timeLong = req.getPeriod();
         this.price = req.getPrice();
         this.num = req.getNum();
-        this.total = this.price.multiply(new BigDecimal(this.num));
         this.buyer = Long.valueOf(req.getBuyer());
         this.seller = Constants.SELLER;
         this.transNum = Constants.NVL;
@@ -83,6 +83,8 @@ public class Order {
         } else {
             this.transFee = BigDecimal.ZERO;
         }
+        this.total = this.price.multiply(new BigDecimal(this.num)).add(transFee);
+
         this.status = (Long.valueOf(OrderStatus.已下单.getCode()));
         this.opUserName = req.getBuyer();
         this.createdBy = Constants.SYS;

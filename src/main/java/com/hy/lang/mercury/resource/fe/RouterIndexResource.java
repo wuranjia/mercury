@@ -6,18 +6,28 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class UserRouterResource extends AbstractResourceMenu {
+public class RouterIndexResource extends AbstractResourceMenu {
 
     private final MenuAble menuService;
 
-    public UserRouterResource(MenuAble menuService) {
+    public RouterIndexResource(MenuAble menuService) {
         this.menuService = menuService;
     }
 
     @GetMapping("/fe/index")
-    public String list(ModelMap modelMap
+    public String index(ModelMap modelMap
     ) {
         super.setMenus(modelMap, menuService);
-        return "index";
+        //return "index";
+        return "v2-index";
     }
+
+    @GetMapping("/fe/dashboard")
+    public String dashboard(ModelMap modelMap
+    ) {
+        super.setMenus(modelMap, menuService);
+        //return "index";
+        return "v2-dashboard";
+    }
+
 }

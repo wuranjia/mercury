@@ -40,7 +40,7 @@ public class SmsSendService {
 
         // submit.setMsgId(msgId);
         //submit.assignSequenceNumber();
-        submit.setSequenceNumber(Integer.valueOf(seq+""));
+        submit.setSequenceNumber(Integer.valueOf(seq + ""));
         submit.setFeeCode("000000");
         /**
          * 被计费用户的号码，当Fee_UserType为3时该值有效，当Fee_UserType为0、1、2时该值无意义。

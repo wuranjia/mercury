@@ -18,6 +18,7 @@ import com.hy.lang.mercury.resource.req.TransReq;
 import com.hy.lang.mercury.service.OrderAble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +88,7 @@ public class OrderService implements OrderAble {
     }
 
     //填写发货信息
+    @Transactional
     @Override
     public Order transInfo(TransReq req) {
         Order order = orderMapper.selectByPrimaryKey(req.getOrderId());
@@ -114,7 +116,8 @@ public class OrderService implements OrderAble {
     @Override
     public int payConfirm(OrderReq req) {
         Long orderId = req.getOrderId();
-        Long status = req.getStatus();
+        Order order = orderMapper.selectByPrimaryKey(orderId);
+        Long status = order.getStatus();
         if (status.equals(OrderStatus.已下单.getCode())) {
             int i = orderMapper.updateOrderStatus(orderId, OrderStatus.已支付.getCode());
             return i;
@@ -126,7 +129,7 @@ public class OrderService implements OrderAble {
     public int transConfirm(OrderReq req) {
         Long orderId = req.getOrderId();
         Order order = orderMapper.selectByPrimaryKey(orderId);
-        Long status = req.getStatus();
+        Long status = order.getStatus();
         if (status.equals(OrderStatus.已发货.getCode())) {
             storeInGenerate(order);
             return 1;
@@ -135,7 +138,7 @@ public class OrderService implements OrderAble {
     }
 
 
-    public Order storeInGenerate(Order order) {
+    public Order  storeInGenerate(Order order) {
         order.setTransStatus(TransStatus.已收货.name());
         order.setStatus(OrderStatus.已收货.getCode());
         orderMapper.updateTrans(order);

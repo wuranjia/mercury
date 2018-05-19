@@ -31,7 +31,7 @@ public class CmppClient {
     @PostConstruct
     public void init() {
         // TODO: 18/4/18  
-       /* connectionThread = new ConnectionThread();
+        /*connectionThread = new ConnectionThread();
         connectionThread.start();*/
     }
 

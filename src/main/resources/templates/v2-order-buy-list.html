@@ -1,0 +1,139 @@
+<div class="row" style="background-color:#ebebeb">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">我的账户</a></li>
+            <li><a href="#">购买列表</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row" style="background-color:#ebebeb">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>购买列表</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable"
+                       id="orderTable">
+                    <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>产品名称</th>
+                        <th>订单时间</th>
+                        <th>收件地址</th>
+                        <th>邮费</th>
+                        <th>支付金额</th>
+                        <th>订单状态</th>
+                        <th>物流状态</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>订单号</th>
+                        <th>产品名称</th>
+                        <th>订单时间</th>
+                        <th>收件地址</th>
+                        <th>邮费</th>
+                        <th>支付金额</th>
+                        <th>订单状态</th>
+                        <th>物流状态</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../static/assets/biz/form-order-buy-list-v2.js"></script>
+<script type="text/javascript"
+        src="../static/assets/devoops/plugins/bootstrapvalidator/bootstrapValidator.min.js"></script>
+<script type="text/javascript">
+    // Run Datables plugin and create 3 variants of settings
+
+    $(document).ready(function () {
+        // Load Datatables and run plugin on tables
+        init();
+        // Add Drag-n-Drop feature
+        formInit();
+        WinMove();
+    });
+</script>
+
+
+<!--模态框-->
+<div class="modal fade" tabindex="10000" id="trans">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">支付确认</div>
+            <div class="modal-body">
+                <!--模态框内容-->
+                <div class="">
+                    <form id="transForm" class="form-group">
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">产品:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="productName" id="productName" required/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">总价(元):</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="total" id="total" required/>
+                                </div>
+                            </div>
+                            <input id="id" name="id" hidden="true">
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--关键是在这里为两个按钮加上data-am-modal-confirm与data-am-modal-cancel属性-->
+                <span class="btn btn-primary" onclick="add_info()" data-dismiss="modal">确认</span>
+                <span class="btn btn-default" data-dismiss="modal">关闭</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="10000" id="confirmTrans">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">确认收货</div>
+            <div class="modal-body">
+                <ul>
+                    <li><p><span>您需要确认收货吗？</span></p></li>
+                    <li><p><span>确认后会自动生成入库记录</span></p></li>
+                    <li><p><span>请进入"入库清单"将卡片信息同步至我的卡片</span></p></li>
+                </ul>
+                <input id="confirmTransId" name="confirmTransId" hidden="true">
+            </div>
+            <div class="modal-footer">
+                <span class="btn btn-primary" onclick="confirm()" data-dismiss="modal">确认</span>
+                <span class="btn btn-default" data-dismiss="modal">关闭</span>
+            </div>
+        </div>
+        <!--模态框内容-->
+    </div>
+</div>

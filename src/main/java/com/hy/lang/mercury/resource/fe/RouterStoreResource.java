@@ -16,12 +16,14 @@ public class RouterStoreResource extends AbstractResourceMenu {
     @GetMapping("/fe/store/in_list")
     public String buyList(ModelMap modelMap) {
         super.setMenus(modelMap, menuService);
-        return "form-store-in-list";
+        //return "form-store-in-list";
+        return "v2-store-in-list";
     }
 
     @GetMapping("/fe/store/out_list")
     public String sellList(ModelMap modelMap) {
         super.setMenus(modelMap, menuService);
-        return "form-store-out-list";
+        //return "form-store-out-list";
+        return "v2-store-out-list";
     }
 }

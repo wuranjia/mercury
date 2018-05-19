@@ -90,13 +90,21 @@ $(document).ready(function () {
             orderMulti: false, //启用多列排序
             order: [], //取消默认排序查询,否则复选框一列会出现小箭头
             renderer: "bootstrap", //渲染样式：Bootstrap和jquery-ui
-            pagingType: "simple_numbers", //分页样式：simple,simple_numbers,full,full_numbers
+            pagingType: "full", //分页样式：simple,simple_numbers,full,full_numbers
             bFilter: false,    //去掉搜索框方法三：这种方法可以
             bLengthChange: false,   //去掉每页显示多少条数据方法
             columnDefs: [{
                 "targets": 'nosort', //列的样式名
                 "orderable": false //包含上样式名‘nosort'的禁止排序
             }],
+            fnInitComplete: function () {
+                // 此方法，会在表格完全加载完成之后调用，
+                // 为了防止异步表格还没有加载完，分页插件还没有生成，导致找不到的问题
+                // 美化滚动条
+                //niceScrollBar();
+                // datatables 分页插件，放到左下角
+                $("#smsTable_paginate").addClass('right');
+            },
             ajax: function (data, callback, settings) {
                 //封装请求参数
                 var param = {};

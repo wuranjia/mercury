@@ -529,7 +529,7 @@
             #{item.updatedBy,jdbcType=VARCHAR},
             #{item.openFlag,jdbcType=VARCHAR}, #{item.openDate,jdbcType=TIMESTAMP},
             #{item.flowUseMonth,jdbcType=DECIMAL})
-        </foreach>
+                            </foreach>
 
     </insert>
 
