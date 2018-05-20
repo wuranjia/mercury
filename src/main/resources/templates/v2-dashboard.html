@@ -1,9 +1,8 @@
 <div class="row " style="background-color:#ebebeb">
     <div id="breadcrumb" class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="index.html">Dashboard</a></li>
-            <li><a href="#">Charts</a></li>
-            <li><a href="#">xCharts</a></li>
+            <li><a href="index">首页</a></li>
+            <li><a href="#">大盘</a></li>
         </ol>
     </div>
 </div>
@@ -13,7 +12,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-search"></i>
-                    <span>Plot with points</span>
+                    <span>库存状态</span>
                 </div>
                 <div class="box-icons">
                     <a class="collapse-link">
@@ -38,7 +37,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-search"></i>
-                    <span>Company cost (billions of dollars)</span>
+                    <span>卡片状态</span>
                 </div>
                 <div class="box-icons">
                     <a class="collapse-link">
@@ -65,7 +64,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-search"></i>
-                    <span>Thresholds</span>
+                    <span>每日短信数量统计</span>
                 </div>
                 <div class="box-icons">
                     <a class="collapse-link">
@@ -86,18 +85,24 @@
         </div>
     </div>
 </div>
+<link href="../static/assets/echart/asset/css/font-awesome.min.css" rel="stylesheet">
+<link href="../static/assets/echart/asset/css/carousel.css" rel="stylesheet">
+<script src="../static/assets/echart/asset/js/echarts-all.js"></script>
+<script type="text/javascript" src="../static/assets/biz/dashboard-v2.js"></script>
 <script type="text/javascript">
     // Draw all test xCharts
     function DrawAllxCharts() {
-        xGraph1();
-        xGraph2();
-        xGraph3();
+        dxGraph1();
+        dxGraph2();
+        dxGraph3();
     }
 
     $(document).ready(function () {
         // Load required scripts and callback to draw
-        LoadXChartScript(DrawAllxCharts);
+        //LoadXChartScript(DrawAllxCharts);
         // Required for correctly resize charts, when boxes expand
+        initSession();
+        DrawAllxCharts();
         var graphxChartsResize;
         $(".box").resize(function (event) {
             event.preventDefault();

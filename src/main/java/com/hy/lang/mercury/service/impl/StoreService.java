@@ -9,6 +9,7 @@ import com.hy.lang.mercury.pojo.SimBase;
 import com.hy.lang.mercury.pojo.Store;
 import com.hy.lang.mercury.pojo.StoreDetail;
 import com.hy.lang.mercury.pojo.enums.TransStatus;
+import com.hy.lang.mercury.resource.req.MatrixReq;
 import com.hy.lang.mercury.resource.req.StoreReq;
 import com.hy.lang.mercury.service.StoreAble;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 入库，出库记录
@@ -128,6 +127,17 @@ public class StoreService implements StoreAble {
             inserts.add(simBase);
         }
         simBaseMapper.batchInsert(inserts);
+    }
+
+    @Override
+    public Map<String, String> matrix(MatrixReq req) {
+        Long userId = req.getUserId();
+        int in_count = storeMapper.countIn(userId);
+        int out_count = storeMapper.countOut(userId);
+        Map<String,String> result = new HashMap<String,String>();
+        result.put("in",in_count+"");
+        result.put("out",out_count+"");
+        return result;
     }
 
     /**

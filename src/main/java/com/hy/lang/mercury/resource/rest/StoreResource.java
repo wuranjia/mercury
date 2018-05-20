@@ -7,6 +7,7 @@ import com.hy.lang.mercury.common.utils.DateTimeUtils;
 import com.hy.lang.mercury.pojo.Store;
 import com.hy.lang.mercury.pojo.StoreDetail;
 import com.hy.lang.mercury.pojo.enums.StoreType;
+import com.hy.lang.mercury.resource.req.MatrixReq;
 import com.hy.lang.mercury.resource.req.StoreReq;
 import com.hy.lang.mercury.service.StoreAble;
 import org.springframework.http.MediaType;
@@ -19,7 +20,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 /**
  * 库存管理相关
@@ -32,6 +33,17 @@ public class StoreResource extends BaseResource {
 
     public StoreResource(StoreAble storeService) {
         this.storeService = storeService;
+    }
+
+    @RequestMapping(path = "/matrix", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String matrix(@RequestBody MatrixReq req) {
+        try {
+            Map<String,String> resp = storeService.matrix(req);
+            return JSON.toJSONString(ResponseEntity.createBySuccess(resp));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JSON.toJSONString(ResponseEntity.createByError());
+        }
     }
 
     @RequestMapping(path = "/in/list", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

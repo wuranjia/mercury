@@ -245,4 +245,12 @@
         set sms_other = #{smsOther,jdbcType=VARCHAR}
         where sms_id = #{smsId,jdbcType=BIGINT}
     </update>
+
+    <select id="matrix" parameterType="Long" resultType="com.hy.lang.mercury.resource.resp.MatrixResp">
+      SELECT count(1) as num ,
+      DATE_FORMAT(created_time,'%Y-%m-%d') AS day
+      FROM mercury.t_m_sms where
+      user_id = 1
+      group by DATE_FORMAT(created_time,'%Y-%m-%d')
+    </select>
 </mapper>

@@ -3,9 +3,11 @@ package com.hy.lang.mercury.service;
 import com.hy.lang.mercury.common.entity.PageList;
 import com.hy.lang.mercury.pojo.Store;
 import com.hy.lang.mercury.pojo.StoreDetail;
+import com.hy.lang.mercury.resource.req.MatrixReq;
 import com.hy.lang.mercury.resource.req.StoreReq;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StoreAble {
     //入库列表
@@ -27,4 +29,6 @@ public interface StoreAble {
     void insertDetail(String path,String storeId);
 
     void sync(StoreReq req);
+
+    Map<String,String> matrix(MatrixReq req);
 }

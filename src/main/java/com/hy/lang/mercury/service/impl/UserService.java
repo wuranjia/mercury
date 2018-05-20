@@ -87,8 +87,7 @@ public class UserService implements UserAble {
         if (list == null || list.size() != Constants.ONE_INT) {
             throw new McException(OpRespEnum.用户不存在);
         }
-        String loginPwd = MD5Utils.encodeUserInfo(userName, passWord);
-        User user = userOpService.queryByNameAndPwd(userName, loginPwd);
+        User user = userOpService.queryByNameAndPwd(userName, passWord);
         if (user == null) {
             throw new McException(OpRespEnum.密码不正确);
         }

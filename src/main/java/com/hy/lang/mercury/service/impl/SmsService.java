@@ -11,15 +11,19 @@ import com.hy.lang.mercury.pojo.SmsDeliver;
 import com.hy.lang.mercury.pojo.SmsInfo;
 import com.hy.lang.mercury.pojo.SmsView;
 import com.hy.lang.mercury.pojo.enums.SmsViewType;
+import com.hy.lang.mercury.resource.req.MatrixReq;
 import com.hy.lang.mercury.resource.req.SmsDeliverReq;
 import com.hy.lang.mercury.resource.req.SmsInfoReq;
 import com.hy.lang.mercury.resource.req.SmsViewReq;
+import com.hy.lang.mercury.resource.resp.MatrixResp;
 import com.hy.lang.mercury.service.SmsAble;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SmsService implements SmsAble {
@@ -54,7 +58,7 @@ public class SmsService implements SmsAble {
             for (String dest : receivedArray) {
                 SmsInfo smsInfo = new SmsInfo(dest, smsContent, userId, null);
                 int seq = smsInfoMapper.insert(smsInfo);
-                smsViewMapper.insert(new SmsView(smsInfo.getSmsId(),dest, smsContent, SmsViewType.发送, SmsStatus.发送中.name()));
+                smsViewMapper.insert(new SmsView(smsInfo.getSmsId(), dest, smsContent, SmsViewType.发送, SmsStatus.发送中.name()));
                 int requestId = smsSendService.send(dest, smsInfo.getSmsId(), smsContent);
                 smsInfoMapper.updateSmsOtherNo(smsInfo.getSmsId(), String.valueOf(requestId));
                 i = i + seq;
@@ -112,6 +116,22 @@ public class SmsService implements SmsAble {
         pageList.setTotal(total);
         pageList.setItems(list);
         return pageList;
+    }
+
+    @Override
+    public Map<String, String[]> matrix(MatrixReq req) {
+        List<MatrixResp> list = smsInfoMapper.matrix(req.getUserId());
+        String[] day = new String[list.size()];
+        String[] num = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            MatrixResp matrixResp = list.get(i);
+            day[i] = matrixResp.getDay();
+            num[i] = matrixResp.getNum();
+        }
+        Map<String, String[]> result = new HashMap<String, String[]>();
+        result.put("day", day);
+        result.put("num", num);
+        return result;
     }
 
 }

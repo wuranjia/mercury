@@ -5,11 +5,15 @@ import com.hy.lang.mercury.common.entity.PageList;
 import com.hy.lang.mercury.pojo.SmsDeliver;
 import com.hy.lang.mercury.pojo.SmsInfo;
 import com.hy.lang.mercury.pojo.SmsView;
+import com.hy.lang.mercury.resource.req.MatrixReq;
 import com.hy.lang.mercury.resource.req.SmsDeliverReq;
 import com.hy.lang.mercury.resource.req.SmsInfoReq;
 import com.hy.lang.mercury.resource.req.SmsViewReq;
+import com.hy.lang.mercury.resource.resp.MatrixResp;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Map;
 
 public interface SmsAble {
 
@@ -22,4 +26,6 @@ public interface SmsAble {
     int updateSms(Long smsId, SmsStatus status);
 
     PageList<SmsView> listView(SmsViewReq smsViewReq);
+
+    Map<String,String[]> matrix(MatrixReq req);
 }

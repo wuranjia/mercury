@@ -118,6 +118,9 @@ public class UserResource {
     ) {
         try {
             User res = userOpService.queryByNameAndPwd(userName, loginPwd);
+            if (res == null) {
+                return JSON.toJSONString(ResponseEntity.createByError());
+            }
             User user = new User(userName, loginPwd, trdPwd, phone, company, address, memo, parentId);
             user.setUserId(userId);
             userOpService.update(user);

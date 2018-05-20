@@ -48,6 +48,14 @@ public class UserOpService implements UserOpAble {
 
     @Override
     public int update(User user) {
+        String passWord = user.getLoginPwd();
+        String userName = user.getUserName();
+        String loginPwd = MD5Utils.encodeUserInfo(userName, passWord);
+        user.setLoginPwd(loginPwd);
+
+        String trdPwd = user.getPayPwd();
+        String tradePwd = MD5Utils.encodeUserInfo(userName, trdPwd);
+        user.setPayPwd(tradePwd);
 
         return userMapper.updateByPrimaryKey(user);
     }
@@ -70,6 +78,7 @@ public class UserOpService implements UserOpAble {
 
     @Override
     public User queryByNameAndPwd(String userName, String passWord) {
-        return userMapper.queryByNameAndPwd(userName, passWord);
+        String loginPwd = MD5Utils.encodeUserInfo(userName, passWord);
+        return userMapper.queryByNameAndPwd(userName, loginPwd);
     }
 }

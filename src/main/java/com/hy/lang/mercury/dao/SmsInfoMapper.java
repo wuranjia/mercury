@@ -2,6 +2,7 @@ package com.hy.lang.mercury.dao;
 
 import com.hy.lang.mercury.pojo.SmsInfo;
 import com.hy.lang.mercury.resource.req.SmsInfoReq;
+import com.hy.lang.mercury.resource.resp.MatrixResp;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -34,4 +35,6 @@ public interface SmsInfoMapper {
     int updateSmsStatusAndMemo(@Param("smsId") Long smsId,@Param("status") int status, @Param("memo") String memo);
 
     void updateSmsOtherNo(@Param("smsId") Long smsId,@Param("smsOther") String smsOther);
+
+    List<MatrixResp> matrix(Long userId);
 }

@@ -103,7 +103,7 @@ function init() {
                         + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:showBuyWindow(\''
                         + obj.id
                         + '\');">' +
-                        '<span class="am-icon-pencil-square-o">上传卡信息</span></a>'
+                        '<span class="am-icon-pencil-square-o">上传卡信息 &nbsp;&nbsp;</span></a>'
 
                         + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:cardDetail(\''
                         + obj.id

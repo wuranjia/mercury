@@ -269,7 +269,7 @@
         <include refid="Base_Column_List"/>
         from t_m_store
         where 1=1
-       and order_id = #{orderId,jdbcType=BIGINT}
+        and order_id = #{orderId,jdbcType=BIGINT}
         and store_type = #{storeType,jdbcType=VARCHAR}
     </select>
 
@@ -291,4 +291,17 @@
 
     </select>
 
+    <select id="countIn" resultType="Integer" parameterType="Long">
+      select count(1) from t_m_store a LEFT JOIN t_m_store_detail b
+      on b.store_id = a.id where a.store_type = '入库'
+      and buyer = #{userId,jdbcType=BIGINT}
+
+    </select>
+
+
+    <select id="countOut" resultType="Integer" parameterType="Long">
+        select count(1) from t_m_store a LEFT JOIN t_m_store_detail b
+        on b.store_id = a.id where a.store_type = '出库'
+        and seller = #{userId,jdbcType=BIGINT}
+    </select>
 </mapper>

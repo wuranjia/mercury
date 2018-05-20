@@ -29,4 +29,8 @@ public interface StoreMapper {
     List<Store> selectByParams(StoreReq req);
 
     Store selectByOrderId(@Param("orderId") Long orderId,@Param("storeType") String storeType);
+
+    int countIn(Long userId);
+
+    int countOut(Long userId);
 }

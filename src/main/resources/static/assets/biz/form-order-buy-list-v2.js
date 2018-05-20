@@ -101,7 +101,7 @@ function init() {
                     if (obj.status == 10) {
                         return '<div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">'
                             + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:showBuyWindow(\'' + obj.id + '\',\'' + obj.productName + '\',\'' + obj.total + '\',\'' + obj.status + '\');">' +
-                            '<span class="am-icon-pencil-square-o">确认支付</span></a>' + '</div></div>';
+                            '<span class="am-icon-pencil-square-o">确认支付 &nbsp;&nbsp;</span></a>' + '</div></div>';
                     } else if (obj.status == 30) {
                         return '<div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">'
                             + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:confirmTrans(\'' + obj.id + '\',\'' + obj.productName + '\',\'' + obj.total + '\',\'' + obj.status + '\');">' +

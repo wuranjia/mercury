@@ -103,7 +103,7 @@ function init() {
                         + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:cardDetail(\''
                         + obj.id
                         + '\');">' +
-                        '<span class="am-icon-pencil-bell-o">详情</span></a>'
+                        '<span class="am-icon-pencil-bell-o">详情 &nbsp;&nbsp;</span></a>'
                         + '<a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:sync(\''
                         + obj.id
                         + '\');">' +
