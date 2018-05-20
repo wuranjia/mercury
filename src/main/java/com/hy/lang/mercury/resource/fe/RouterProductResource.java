@@ -17,7 +17,8 @@ public class RouterProductResource extends AbstractResourceMenu {
     @GetMapping("/fe/product/list")
     public String list(ModelMap modelMap) {
         super.setMenus(modelMap, menuService);
-        return "form-product-list";
+        //return "form-product-list";
+        return "v2-product-list";
     }
 
 

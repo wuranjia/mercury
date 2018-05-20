@@ -3,7 +3,7 @@
         <ol class="breadcrumb">
             <li><a href="#">首页</a></li>
             <li><a href="#">我的账户</a></li>
-            <li><a href="#">购买列表</a></li>
+            <li><a href="#">出库清单</a></li>
         </ol>
     </div>
 </div>
@@ -13,7 +13,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-linux"></i>
-                    <span>购买列表</span>
+                    <span>出库清单</span>
                 </div>
                 <div class="box-icons">
                     <a class="collapse-link">
@@ -34,13 +34,13 @@
                     <thead>
                     <tr>
                         <th>订单号</th>
+                        <th>出库单号</th>
                         <th>产品名称</th>
-                        <th>订单时间</th>
-                        <th>收件地址</th>
-                        <th>邮费</th>
-                        <th>支付金额</th>
-                        <th>订单状态</th>
-                        <th>物流状态</th>
+                        <th>出库时间</th>
+                        <th>快递单号</th>
+                        <th>付款金额</th>
+                        <th>续费单价</th>
+                        <th>数量</th>
                         <th>备注</th>
                         <th>操作</th>
                     </tr>
@@ -48,13 +48,13 @@
                     <tfoot>
                     <tr>
                         <th>订单号</th>
+                        <th>出库单号</th>
                         <th>产品名称</th>
-                        <th>订单时间</th>
-                        <th>收件地址</th>
-                        <th>邮费</th>
-                        <th>支付金额</th>
-                        <th>订单状态</th>
-                        <th>物流状态</th>
+                        <th>出库时间</th>
+                        <th>快递单号</th>
+                        <th>付款金额</th>
+                        <th>续费单价</th>
+                        <th>数量</th>
                         <th>备注</th>
                         <th>操作</th>
                     </tr>
@@ -64,7 +64,11 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="../static/assets/biz/form-order-buy-list-v2.js"></script>
+<script type="text/javascript" src="../static/assets/biz/form-store-out-list-v2.js"></script>
+<script type="text/javascript"
+        src="../static/assets/devoops/plugins/bootstrapvalidator/bootstrapValidator.min.js"></script>
+<script type="text/javascript"
+        src="../static/assets/devoops/plugins/fineuploader/jquery.fineuploader-4.3.1.min.js"></script>
 <script type="text/javascript">
     // Run Datables plugin and create 3 variants of settings
 
@@ -79,60 +83,59 @@
 
 
 <!--模态框-->
-<div class="modal fade" tabindex="10000" id="trans">
+<div class="modal fade" tabindex="10000" id="cardDetail">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">支付确认</div>
+            <div class="modal-header">卡片详情</div>
             <div class="modal-body">
-                <!--模态框内容-->
-                <div class="">
-                    <form id="transForm" class="form-group">
-                        <fieldset>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">产品:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="productName" id="productName"
-                                           required/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">总价(元):</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="total" id="total" required/>
-                                </div>
-                            </div>
-                            <input id="id" name="id" hidden="true">
-                        </fieldset>
-                    </form>
+                <div class="col-xs-12">
+
+                    <!--模态框内容-->
+                    <table id="cardTable"
+                           class="table table-bordered table-striped table-hover table-heading table-datatable"
+                    >
+                        <thead>
+                        <tr>
+                            <th>订单编号</th>
+                            <th>出库编号</th>
+                            <th>sim</th>
+                            <th>iccid</th>
+                            <th>imsi</th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">
                 <!--关键是在这里为两个按钮加上data-am-modal-confirm与data-am-modal-cancel属性-->
-                <span class="btn btn-primary" onclick="add_info()">确认</span>
                 <span class="btn btn-default" data-dismiss="modal">关闭</span>
             </div>
         </div>
     </div>
 </div>
 
-
-<div class="modal fade" tabindex="10000" id="confirmTrans">
+<div class="modal fade" tabindex="10000" id="trans">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">确认收货</div>
+            <div class="modal-header">卡片详情上传</div>
             <div class="modal-body">
-                <ul>
-                    <li><p><span>您需要确认收货吗？</span></p></li>
-                    <li><p><span>确认后会自动生成入库记录</span></p></li>
-                    <li><p><span>请进入"入库清单"将卡片信息同步至我的卡片</span></p></li>
-                </ul>
-                <input id="confirmTransId" name="confirmTransId" hidden="true">
+                <div class="col-xs-12">
+                    <form id="transForm" name="transForm" action="/store/upload" method="post" class="form-group"
+                          enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input class="btn btn-success" id="doc-form-file" name="uploadFile" type="file"
+                                   value="请选择需要上传的文件" multiple>
+                        </div>
+                        <input id="storeId" name="storeId" value="" style="display: none">
+                        <div id="file-list"></div>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
-                <span class="btn btn-primary" onclick="confirm()" data-dismiss="modal">确认</span>
+                <!--关键是在这里为两个按钮加上data-am-modal-confirm与data-am-modal-cancel属性-->
+                <span class="btn btn-primary" onclick="uploadFiles()" data-dismiss="modal">上传</span>
                 <span class="btn btn-default" data-dismiss="modal">关闭</span>
             </div>
         </div>
-        <!--模态框内容-->
     </div>
 </div>

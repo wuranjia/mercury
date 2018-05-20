@@ -122,7 +122,7 @@ function init() {
     }
 }
 
-function formInit(){
+function formInit() {
     $('#transForm').bootstrapValidator(
         {
             message: 'This value is not valid',
@@ -145,31 +145,14 @@ function formInit(){
         }
     );
 }
+
 function add_info() {
     var productName = $('#productName').val();
     var orderId = $('#id').val();
     var total = $('#total').val();
-    if ($('#transForm').bootstrapValidator(
-            {
-                message: 'This value is not valid',
-                fields: {
-                    productName: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The productName is required and can\'t be empty'
-                            }
-                        }
-                    },
-                    total: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The total is required and can\'t be empty'
-                            }
-                        }
-                    }
-                }
-            }
-        )) {
+    var bootstrapValidator = $("#transForm").data('bootstrapValidator');
+    bootstrapValidator.validate();
+    if (bootstrapValidator.isValid()) {
         // 請求後台
         var req = {};
         req.orderId = orderId;
@@ -221,7 +204,7 @@ function showBuyWindow(id, name, price, status) {
     });
 }
 
-function confirm(){
+function confirm() {
     var orderId = $('#confirmTransId').val();
     // 請求後台
     var req = {};

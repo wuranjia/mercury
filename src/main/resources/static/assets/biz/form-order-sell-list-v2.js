@@ -38,7 +38,7 @@ function init() {
             param.start = data.start;//开始的记录序号
             param.page = (data.start / data.length) + 1;//当前页码
             param.draw = data.draw;
-            param.buyer = userId;
+            param.seller = userId;
             //ajax请求数据
             $.ajax({
                 type: "POST",

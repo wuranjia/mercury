@@ -1,0 +1,155 @@
+<div class="row" style="background-color:#ebebeb">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">我的账户</a></li>
+            <li><a href="#">产品列表</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row" style="background-color:#ebebeb">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>产品列表</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable"
+                       id="productTable">
+                    <thead>
+                    <tr>
+                        <th>产品ID</th>
+                        <th>产品名称</th>
+                        <th>流量</th>
+                        <th>类别</th>
+                        <th>续费单价</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>产品ID</th>
+                        <th>产品名称</th>
+                        <th>流量</th>
+                        <th>类别</th>
+                        <th>续费单价</th>
+                        <th>操作</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../static/assets/biz/form-product-list-v2.js"></script>
+<script type="text/javascript"
+        src="../static/assets/devoops/plugins/fineuploader/jquery.fineuploader-4.3.1.min.js"></script>
+<script type="text/javascript">
+    // Run Datables plugin and create 3 variants of settings
+
+    $(document).ready(function () {
+        // Load Datatables and run plugin on tables
+        init();
+        // Add Drag-n-Drop feature
+        formInit();
+        WinMove();
+    });
+</script>
+
+
+<!--模态框-->
+<div class="modal fade" tabindex="10000" id="buy">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">下单</div>
+            <div class="modal-body">
+                <form class="form-group form-horizontal" role="form" id="buyForm">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">产品:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="产品" data-toggle="tooltip"
+                                       data-placement="bottom" id="productName" name="productName" disabled="disabled">
+                            </div>
+                            <label class="col-sm-2 control-label">单价(元):</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="" data-toggle="tooltip"
+                                       data-placement="bottom" id="price" name="price" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">数量(张):</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="数量" data-toggle="tooltip"
+                                       data-placement="bottom" id="num" name="num">
+                            </div>
+                            <label class="col-sm-2 control-label">时长(月):</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="时长" data-toggle="tooltip"
+                                       data-placement="bottom" id="period" name="period">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">收货人:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="收货人" data-toggle="tooltip"
+                                       data-placement="bottom" id="transPerson" name="transPerson">
+                            </div>
+                            <label class="col-sm-2 control-label">联系方式:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="联系方式" data-toggle="tooltip"
+                                       data-placement="bottom" id="transPhone" name="transPhone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">快递方式:</label>
+                            <div class="col-sm-4">
+                                <select id="transType" name="transType" multiple="" class="populate placeholder">
+                                    <option value="顺丰">顺丰(23元)</option>
+                                    <option value="普通" selected>普通<(10元)/option>
+                                    <option value="到付">到付</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">收货地址:</label>
+                            <div class="col-sm-10">
+                            <textarea class="form-control" placeholder="收货地址" data-toggle="tooltip"
+                                      data-placement="bottom" id="transAddress" name="transAddress"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注:</label>
+                            <div class="col-sm-10">
+                            <textarea class="form-control" placeholder="备注" data-toggle="tooltip"
+                                      data-placement="bottom" title="" id="memo"/>
+                            </div>
+                        </div>
+                        <input id="id" name="id" hidden="true">
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--关键是在这里为两个按钮加上data-am-modal-confirm与data-am-modal-cancel属性-->
+                <span class="btn btn-primary" onclick="buySubmit()">提交</span>
+                <span class="btn btn-default" data-dismiss="modal">关闭</span>
+            </div>
+        </div>
+    </div>
+</div>
