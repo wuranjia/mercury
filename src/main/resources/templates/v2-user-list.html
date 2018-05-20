@@ -1,0 +1,430 @@
+<div class="row" style="background-color:#ebebeb">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">我的账户</a></li>
+            <li><a href="#">客户列表</a></li>
+        </ol>
+    </div>
+</div>
+
+<div class="row" style="background-color:#ebebeb">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>查询条件</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <FORM id="queryForm">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">登录名:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="userName"/>
+                        </div>
+                        <label class="col-sm-2 control-label">手机号:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="phone"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">公司名称:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="company"/>
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="btn btn-primary" href="javascript:query();">查询</a>
+                            <a class="btn btn-default" href="javascript:add();">新增</a>
+                        </div>
+                    </div>
+                </FORM>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="background-color:#ebebeb">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>客户列表</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable"
+                       id="userTable">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>登录名</th>
+                        <th>推荐人</th>
+                        <th>联系方式</th>
+                        <th>公司名称</th>
+                        <th>常用地址</th>
+                        <th>备注</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>序号</th>
+                        <th>登录名</th>
+                        <th>推荐人</th>
+                        <th>联系方式</th>
+                        <th>公司名称</th>
+                        <th>常用地址</th>
+                        <th>备注</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="../../static/assets/ztree/css/zTreeStyle/zTreeStyle.css">
+<script src="../../static/assets/ztree/jquery.ztree.core.min.js"></script>
+<script src="../../static/assets/ztree/jquery.ztree.excheck.min.js"></script>
+<script type="text/javascript" src="../static/assets/biz/form-user-list-v2.js"></script>
+<script type="text/javascript"
+        src="../static/assets/devoops/plugins/fineuploader/jquery.fineuploader-4.3.1.min.js"></script>
+<script type="text/javascript">
+    // Run Datables plugin and create 3 variants of settings
+
+    $(document).ready(function () {
+        // Load Datatables and run plugin on tables
+        init();
+        // Add Drag-n-Drop feature
+        formInit();
+        WinMove();
+    });
+</script>
+
+
+<!--模态框-->
+<div class="modal fade" tabindex="10000" id="menu">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">分配权限</div>
+            <div class="modal-body">
+                <form class="ztree-form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户ID:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="preUserId" name="preUserId"
+                                   disabled="disabled"/>
+                        </div>
+                        <label class="col-sm-2 control-label">用户名称:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="preUserName" name="preUserName"
+                                   disabled="disabled"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">分配菜单:</label>
+                        <div class="col-sm-10">
+                            <div class="zTreeDemoBackground left">
+                                <ul id="treeDemo" class="ztree"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--关键是在这里为两个按钮加上data-am-modal-confirm与data-am-modal-cancel属性-->
+                <span class="btn btn-primary" onclick="saveMenu()">提交</span>
+                <span class="btn btn-default" data-dismiss="modal">关闭</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="10000" id="edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">修改客户</div>
+            <div class="modal-body">
+                <form id="editForm" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户ID:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="editUserId" name="editUserId"
+                                   disabled="disabled"/>
+                        </div>
+                        <label class="col-sm-2 control-label">登录名:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="editUserName" name="editUserName"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">登录密码:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="editLoginPwd" name="editLoginPwd"
+                            />
+                        </div>
+                        <label class="col-sm-2 control-label">交易密码:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="editTrdPwd" name="editTrdPwd"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">手机号:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="editPhone" name="editPhone"
+                            />
+                        </div>
+                        <label class="col-sm-2 control-label">公司名称:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="editCompany" name="editCompany"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">地址:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" placeholder=""
+                                      data-toggle="tooltip"
+                                      data-placement="bottom" title="" id="editAddress" name="editAddress"
+                            />
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" placeholder=""
+                                      data-toggle="tooltip"
+                                      data-placement="bottom" title="" id="editMemo" name="editMemo"
+                            />
+                        </div>
+                    </div>
+                    <input id="editParentId" hidden="hidden">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--关键是在这里为两个按钮加上data-am-modal-confirm与data-am-modal-cancel属性-->
+                <span class="btn btn-primary" onclick="saveEdit()">提交</span>
+                <span class="btn btn-default" data-dismiss="modal">关闭</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="10000" id="add">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">新增客户</div>
+            <div class="modal-body">
+                <div>
+                    <form id="addForm" class="form-group" role="form">
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">登录名:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder=""
+                                           data-toggle="tooltip"
+                                           data-placement="bottom" title="" id="addUserName" name="addUserName"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">登录密码:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder=""
+                                           data-toggle="tooltip"
+                                           data-placement="bottom" title="" id="addLoginPwd" name="addLoginPwd"
+                                    />
+                                </div>
+                                <label class="col-sm-2 control-label">交易密码:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder=""
+                                           data-toggle="tooltip"
+                                           data-placement="bottom" title="" id="addTrdPwd" name="addTrdPwd"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手机号:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder=""
+                                           data-toggle="tooltip"
+                                           data-placement="bottom" title="" id="addPhone" name="addPhone"
+                                    />
+                                </div>
+                                <label class="col-sm-2 control-label">公司名称:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder=""
+                                           data-toggle="tooltip"
+                                           data-placement="bottom" title="" id="addCompany" name="addCompany"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">地址:</label>
+                                <div class="col-sm-10">
+                            <textarea class="form-control" placeholder=""
+                                      data-toggle="tooltip"
+                                      data-placement="bottom" title="" id="addAddress" name="addAddress"
+                            />
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">备注:</label>
+                                <div class="col-sm-10">
+                            <textarea class="form-control" placeholder=""
+                                      data-toggle="tooltip"
+                                      data-placement="bottom" title="" id="addMemo" name="addMemo"
+                            />
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <!--关键是在这里为两个按钮加上data-am-modal-confirm与data-am-modal-cancel属性-->
+                <span class="btn btn-primary" onclick="saveAdd()">提交</span>
+                <span class="btn btn-default" data-dismiss="modal">关闭</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="10000" id="detail">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">详情</div>
+            <div class="modal-body">
+                <form id="detailForm" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户ID:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="detailUserId" name="detailUserId"
+                                   disabled="disabled"/>
+                        </div>
+                        <label class="col-sm-2 control-label">登录名:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="detailUserName" name="detailUserName"
+                                   disabled="disabled"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">登录密码:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="detailLoginPwd" name="detailLoginPwd"
+                                   disabled="disabled"/>
+                        </div>
+                        <label class="col-sm-2 control-label">交易密码:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="detailTrdPwd" name="detailTrdPwd"
+                                   disabled="disabled"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">手机号:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="detailPhone" name="detailPhone"
+                                   disabled="disabled"/>
+                        </div>
+                        <label class="col-sm-2 control-label">公司名称:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=""
+                                   data-toggle="tooltip"
+                                   data-placement="bottom" title="" id="detailCompany" name="detailCompany"
+                                   disabled="disabled"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">地址:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" placeholder=""
+                                      data-toggle="tooltip"
+                                      data-placement="bottom" title="" id="detailAddress" name="detailAddress"
+                                      disabled="disabled"/>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" placeholder=""
+                                      data-toggle="tooltip"
+                                      data-placement="bottom" title="" id="detailMemo" name="detailMemo"
+                                      disabled="disabled"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--关键是在这里为两个按钮加上data-am-modal-confirm与data-am-modal-cancel属性-->
+                <span class="btn btn-default" data-dismiss="modal">关闭</span>
+            </div>
+        </div>
+    </div>
+</div>

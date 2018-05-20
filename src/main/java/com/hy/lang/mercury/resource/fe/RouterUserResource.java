@@ -31,7 +31,8 @@ public class RouterUserResource extends AbstractResourceMenu {
     @GetMapping("/fe/user/list")
     public String list(ModelMap modelMap) {
         super.setMenus(modelMap, menuService);
-        return "form-user-list";
+       // return "form-user-list";
+        return "v2-user-list";
     }
 
     @GetMapping("/fe/user/detail")
